@@ -7,7 +7,6 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redis;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -20,7 +19,7 @@ final class AuthTest extends TestCase
             'name' => $this->faker->name,
             'email' => $this->faker->email,
             'password' => $password,
-            'password_confirmation' => $password
+            'password_confirmation' => $password,
         ];
         $response = $this->post('/api/v1/auth/register', $data);
         TestsHelper::dumpApiResponsesWithErrors($response, Response::HTTP_CREATED);
@@ -31,16 +30,16 @@ final class AuthTest extends TestCase
             'data' => [
                 'token_type',
                 'token',
-                'user'
-            ]
+                'user',
+            ],
         ]);
         $user = User::firstOrFail();
         $response->assertJson([
             'status' => 'success',
             'message' => 'User is created successfully.',
             'data' => [
-                'user' => (new UserResource($user))->toArray(new Request())
-            ]
+                'user' => (new UserResource($user))->toArray(new Request()),
+            ],
         ]);
         $jsonResponse = json_decode($response->getContent(), true);
         $this->assertEquals($jsonResponse['data']['token_type'], 'bearer');
@@ -62,27 +61,27 @@ final class AuthTest extends TestCase
             'name' => $this->faker->name,
             'email' => $this->faker->email,
             'password' => $password,
-            'password_confirmation' => "FAKE{$password}"
+            'password_confirmation' => "FAKE{$password}",
         ];
         $response = $this->withHeaders([
             'Accept' => 'application/json',
-            'X-Requested-With' => 'XMLHttpRequest'
+            'X-Requested-With' => 'XMLHttpRequest',
         ])->post('/api/v1/auth/register', $data);
         TestsHelper::dumpApiResponsesWithErrors($response, Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonStructure([
             'message',
             'errors' => [
-                'password'
-            ]
+                'password',
+            ],
         ]);
         $response->assertJson([
             'message' => 'The password field confirmation does not match.',
             'errors' => [
                 'password' => [
-                    'The password field confirmation does not match.'
-                ]
-            ]
+                    'The password field confirmation does not match.',
+                ],
+            ],
         ]);
         $this->assertEquals(User::count(), 0, 'no user registered');
     }
@@ -90,10 +89,10 @@ final class AuthTest extends TestCase
     public function testLoginSuccess(): void
     {
         $password = 'password';
-        $user =  User::factory()->create(['password' => $password]);
+        $user = User::factory()->create(['password' => $password]);
         $data = [
             'email' => $user->email,
-            'password' => $password
+            'password' => $password,
         ];
         $response = $this->post('/api/v1/auth/login', $data);
         TestsHelper::dumpApiResponsesWithErrors($response);
@@ -104,15 +103,15 @@ final class AuthTest extends TestCase
             'data' => [
                 'token_type',
                 'token',
-                'user'
-            ]
+                'user',
+            ],
         ]);
         $response->assertJson([
             'status' => 'success',
             'message' => 'User is logged in successfully.',
             'data' => [
-                'user' => (new UserResource($user))->toArray(new Request())
-            ]
+                'user' => (new UserResource($user))->toArray(new Request()),
+            ],
         ]);
     }
 
@@ -123,7 +122,7 @@ final class AuthTest extends TestCase
         TestsHelper::dumpApiResponsesWithErrors($response, Response::HTTP_UNAUTHORIZED);
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
         $response->assertJson([
-            'message' => 'Invalid credentials'
+            'message' => 'Invalid credentials',
         ]);
     }
 
@@ -134,7 +133,7 @@ final class AuthTest extends TestCase
         TestsHelper::dumpApiResponsesWithErrors($response);
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJson([
-            'message' => 'User is logged out successfully'
+            'message' => 'User is logged out successfully',
         ]);
     }
 }

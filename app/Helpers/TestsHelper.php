@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Helpers;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Response;
 use Illuminate\Testing\TestResponse;
-use Illuminate\Contracts\Foundation\Application;
 use NunoMaduro\LaravelDesktopNotifier\Notification;
 
 final class TestsHelper
@@ -13,7 +14,7 @@ final class TestsHelper
     public static function dumpApiResponsesWithErrors(TestResponse $response, int $status = Response::HTTP_OK)
     {
         if ($response->getStatusCode() != $status) {
-            echo "Failed test method: " . debug_backtrace()[1]['function'] . " | Status response: {$response->getStatusCode()} \n";
+            echo 'Failed test method: '.debug_backtrace()[1]['function']." | Status response: {$response->getStatusCode()} \n";
             $response->dump();
         }
     }
@@ -23,10 +24,10 @@ final class TestsHelper
         return strtolower(env('APP_ENV')) === 'local';
     }
 
-    public static function notifyTests(bool $passed = true, Application $app = null): void
+    public static function notifyTests(bool $passed = true, ?Application $app = null): void
     {
         $notification = (new Notification())
-            ->setTitle(config('app.name') . ' Tests')
+            ->setTitle(config('app.name').' Tests')
             ->setBody(
                 $passed ?
                     'All tests passed!' :

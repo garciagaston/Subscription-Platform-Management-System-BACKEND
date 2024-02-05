@@ -21,7 +21,6 @@ class UserResource extends JsonResource
      * @OA\Property(format="date", title="updated_at", description="updated_at", property="updated_at", default="2022-09-29 15:21:29"),
      * @OA\Property(format="date", title="deleted_at", description="deleted_at", property="deleted_at", default="2022-09-29 15:21:29"),
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray(Request $request): array
@@ -35,6 +34,7 @@ class UserResource extends JsonResource
                 ];
             })->toArray();
         }
+
         return [
             'id' => $this->id,
             'name' => $this->name,

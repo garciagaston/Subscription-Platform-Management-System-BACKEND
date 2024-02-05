@@ -11,7 +11,6 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -23,20 +22,26 @@ class AuthController extends Controller
      *     tags={"Auth"},
      *     summary="New user registration",
      *     operationId="AuthRegister",
+     *
      *     @OA\RequestBody(
+     *
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
+     *
      *             @OA\Schema(
      *                 type="object",
      *                 ref="#/components/schemas/RegisterRequest",
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *
      *          @OA\JsonContent(
      *              type="object",
+     *
      *              @OA\Property(
      *                  type="string",
      *                  default="success",
@@ -50,8 +55,10 @@ class AuthController extends Controller
      *              @OA\Property(
      *                  property="data",
      *                  type="array",
+     *
      *                  @OA\Items(
      *                      type="object",
+     *
      *                      @OA\Property(property="token_type", type="string", example="bearer"),
      *                      @OA\Property(property="token", type="string", example="XXXXXXXXXXXXXXX"),
      *                      @OA\Property(property="user", type="array", @OA\Items( ref="#/components/schemas/UserResource")
@@ -66,7 +73,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
         $user->assignRole('user');
 
@@ -79,6 +86,7 @@ class AuthController extends Controller
             'message' => 'User is created successfully.',
             'data' => $data,
         ];
+
         return response()->json($response, Response::HTTP_CREATED);
     }
 
@@ -90,20 +98,26 @@ class AuthController extends Controller
      *     tags={"Auth"},
      *     summary="User login",
      *     operationId="AuthLogin",
+     *
      *     @OA\RequestBody(
+     *
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
+     *
      *             @OA\Schema(
      *                 type="object",
      *                 ref="#/components/schemas/LoginRequest",
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *
      *          @OA\JsonContent(
      *              type="object",
+     *
      *              @OA\Property(
      *                  type="string",
      *                  default="success",
@@ -117,8 +131,10 @@ class AuthController extends Controller
      *              @OA\Property(
      *              property="data",
      *              type="array",
+     *
      *                  @OA\Items(
      *                      type="object",
+     *
      *                      @OA\Property(property="token_type", type="string", example="bearer"),
      *                      @OA\Property(property="token", type="string", example="XXXXXXXXXXXXXXX"),
      *                      @OA\Property(property="user", type="array", @OA\Items( ref="#/components/schemas/UserResource")
@@ -134,10 +150,10 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         // Check password
-        if(!$user || !Hash::check($request->password, $user->password)) {
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             return response()->json([
                 'status' => 'failed',
-                'message' => 'Invalid credentials'
+                'message' => 'Invalid credentials',
             ], Response::HTTP_UNAUTHORIZED);
         }
 
@@ -163,21 +179,26 @@ class AuthController extends Controller
      *     summary="User logout",
      *     operationId="AuthLogout",
      *     security={ {"bearer_token": {} }},
+     *
      *     @OA\Parameter(
      *         name="Authorization",
      *         in="header",
      *         description="Oauth2 token",
      *         example="Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA",
      *         required=true,
+     *
      *         @OA\Schema(
      *             type="string"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *
      *          @OA\JsonContent(
      *              type="object",
+     *
      *              @OA\Property(
      *                  type="string",
      *                  default="success",
@@ -195,10 +216,10 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         auth()->user()->tokens()->delete();
+
         return response()->json([
             'status' => 'success',
-            'message' => 'User is logged out successfully'
+            'message' => 'User is logged out successfully',
         ], Response::HTTP_OK);
     }
-
 }
