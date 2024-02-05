@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Http\Requests\User\UserIndexRequest;
+use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -214,12 +215,23 @@ class UsersController extends Controller
      *             type="string"
      *         )
      *     ),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="User ID",
+     *         example="1",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
      *             @OA\Schema(
      *                 type="object",
-     *                 ref="#/components/schemas/UserStoreRequest",
+     *                 ref="#/components/schemas/UserUpdateRequest",
      *             )
      *         )
      *     ),
@@ -246,7 +258,7 @@ class UsersController extends Controller
      * @param  UserRequest $request
      * @return JsonResponse
      */
-    public function update(UserStoreRequest $request, User $user): JsonResponse
+    public function update(UserUpdateRequest $request, User $user): JsonResponse
     {
         $this->authorize('update', $user);
         $user->update($request->validated());

@@ -322,13 +322,24 @@
                             "type": "string"
                         },
                         "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
                     }
                 ],
                 "requestBody": {
                     "content": {
                         "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/UserStoreRequest"
+                                "$ref": "#/components/schemas/UserUpdateRequest"
                             }
                         }
                     }
@@ -528,6 +539,41 @@
                 "type": "object"
             },
             "UserStoreRequest": {
+                "required": [
+                    "name",
+                    "email",
+                    "password",
+                    "password_confirmation"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "user fullname",
+                        "format": "string",
+                        "example": "Jon Snow",
+                        "nullable": false
+                    },
+                    "email": {
+                        "description": "email",
+                        "format": "string",
+                        "example": "jon.snow@example.com",
+                        "nullable": false
+                    },
+                    "password": {
+                        "description": "user password",
+                        "format": "string",
+                        "example": "password1234",
+                        "nullable": false
+                    },
+                    "password_confirmation": {
+                        "description": "user password confirmation",
+                        "format": "string",
+                        "example": "password1234",
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            },
+            "UserUpdateRequest": {
                 "required": [
                     "name",
                     "email",
