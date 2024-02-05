@@ -42,6 +42,10 @@
                                             "type": "array",
                                             "items": {
                                                 "properties": {
+                                                    "token_type": {
+                                                        "type": "string",
+                                                        "example": "bearer"
+                                                    },
                                                     "token": {
                                                         "type": "string",
                                                         "example": "XXXXXXXXXXXXXXX"
@@ -101,6 +105,10 @@
                                             "type": "array",
                                             "items": {
                                                 "properties": {
+                                                    "token_type": {
+                                                        "type": "string",
+                                                        "example": "bearer"
+                                                    },
                                                     "token": {
                                                         "type": "string",
                                                         "example": "XXXXXXXXXXXXXXX"

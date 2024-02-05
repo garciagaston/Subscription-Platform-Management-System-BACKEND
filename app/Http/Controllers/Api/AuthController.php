@@ -48,17 +48,17 @@ class AuthController extends Controller
      *                  property="message"
      *              ),
      *              @OA\Property(
-     *              property="data",
-     *              type="array",
+     *                  property="data",
+     *                  type="array",
      *                  @OA\Items(
      *                      type="object",
+     *                      @OA\Property(property="token_type", type="string", example="bearer"),
      *                      @OA\Property(property="token", type="string", example="XXXXXXXXXXXXXXX"),
      *                      @OA\Property(property="user", type="array", @OA\Items( ref="#/components/schemas/UserResource")
-     *              )
      *                  )
      *              )
      *         )
-     *     ),
+     *     )),
      * )
      */
     public function register(RegisterRequest $request)
@@ -70,6 +70,7 @@ class AuthController extends Controller
         ]);
         $user->assignRole('user');
 
+        $data['token_type'] = 'bearer';
         $data['token'] = $user->createToken($request->email)->plainTextToken;
         $data['user'] = new UserResource($user);
 
@@ -118,6 +119,7 @@ class AuthController extends Controller
      *              type="array",
      *                  @OA\Items(
      *                      type="object",
+     *                      @OA\Property(property="token_type", type="string", example="bearer"),
      *                      @OA\Property(property="token", type="string", example="XXXXXXXXXXXXXXX"),
      *                      @OA\Property(property="user", type="array", @OA\Items( ref="#/components/schemas/UserResource")
      *              )
@@ -139,6 +141,7 @@ class AuthController extends Controller
             ], Response::HTTP_UNAUTHORIZED);
         }
 
+        $data['token_type'] = 'bearer';
         $data['token'] = $user->createToken($request->email)->plainTextToken;
         $data['user'] = new UserResource($user);
 
