@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Api\Auth\V1;
+namespace Tests\Unit\API;
 
 use App\Helpers\TestsHelper;
 use App\Http\Resources\UserResource;

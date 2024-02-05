@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Api\Auth\V1;
+namespace Tests\Unit\API;
 
 use App\Helpers\TestsHelper;
 use App\Http\Resources\UserResource;
@@ -149,5 +149,55 @@ final class UsersTest extends TestCase
                 $this->assertEquals($user->$key, $value, "key {$key}");
             }
         }
+    }
+
+    public function testUpdateSuccess(): void
+    {
+        $user = User::factory()->create();
+        $password = $this->faker->password(8);
+        $data = [
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'password' => $password,
+            'password_confirmation' => $password
+        ];
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'X-Requested-With' => 'XMLHttpRequest',
+        ])->actingAs($this->admin)->put("/api/v1/users/{$user->id}", $data);
+        TestsHelper::dumpApiResponsesWithErrors($response, Response::HTTP_OK);
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonStructure([
+            'status',
+            'data'
+        ]);
+        $user->refresh();
+        $this->assertFalse($user->isAdmin());
+        $response->assertJson([
+            'status' => 'success',
+            'data' => (new UserResource($user))->toArray(new Request())
+        ]);
+        unset($data['password_confirmation']);
+        foreach ($data as $key => $value) {
+            if ($key === 'password') {
+                $this->assertTrue(Hash::check($value, $user->$key));
+            } else {
+                $this->assertEquals($user->$key, $value, "key {$key}");
+            }
+        }
+    }
+
+    public function testDeleteSuccess(): void
+    {
+        $user = User::factory()->create();
+        $this->assertEquals(User::count(), 2, '2 users');
+        $response = $this->actingAs($this->admin)->delete("/api/v1/users/{$user->id}");
+        TestsHelper::dumpApiResponsesWithErrors($response, Response::HTTP_OK);
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJson(['status' => 'success', 'message' => 'User deleted successfully.']);
+        $deletedUser = User::where('id', $user->id)->onlyTrashed()->firstOrFail();
+        $this->assertNotNull($deletedUser);
+        $this->assertEquals(User::count(), 1, '1 user deleted');
+        $this->assertEquals(User::withTrashed()->count(), 1, 'deleted users ' . User::withTrashed()->count());
     }
 }

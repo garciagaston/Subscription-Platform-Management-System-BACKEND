@@ -58,6 +58,7 @@
             "composer install",
             "composer update",
             "./vendor/bin/pint",
+            "@php artisan l5-swagger:generate",
             "@php artisan migrate",
             "@php artisan test"
         ]

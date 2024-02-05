@@ -29,8 +29,11 @@ class UserPolicy
         return $authenticatedUser->isAdmin();
     }
 
-    public function delete(User $authenticatedUser): bool
+    public function destroy(User $user1, User $user2): bool
     {
-        return $authenticatedUser->isAdmin();
+        if ($user1->id === $user2->id) {
+            return true;
+        }
+        return $user1->isAdmin();
     }
 }

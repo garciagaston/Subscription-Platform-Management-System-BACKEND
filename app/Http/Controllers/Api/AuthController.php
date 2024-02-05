@@ -36,7 +36,7 @@ class AuthController extends Controller
      *     ),
      *
      *     @OA\Response(
-     *          response=200,
+     *          response=201,
      *          description="Successful operation",
      *
      *          @OA\JsonContent(
@@ -131,17 +131,14 @@ class AuthController extends Controller
      *              @OA\Property(
      *              property="data",
      *              type="array",
-     *
      *                  @OA\Items(
      *                      type="object",
-     *
      *                      @OA\Property(property="token_type", type="string", example="bearer"),
      *                      @OA\Property(property="token", type="string", example="XXXXXXXXXXXXXXX"),
      *                      @OA\Property(property="user", type="array", @OA\Items( ref="#/components/schemas/UserResource")
-     *              )
      *                  )
      *              )
-     *         )
+     *         ))
      *     ),
      * )
      */
@@ -179,19 +176,16 @@ class AuthController extends Controller
      *     summary="User logout",
      *     operationId="AuthLogout",
      *     security={ {"bearer_token": {} }},
-     *
      *     @OA\Parameter(
      *         name="Authorization",
      *         in="header",
      *         description="Oauth2 token",
      *         example="Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA",
      *         required=true,
-     *
      *         @OA\Schema(
      *             type="string"
      *         )
      *     ),
-     *
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
