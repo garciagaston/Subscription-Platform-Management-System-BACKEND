@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
  *     required={"name", "email", "password", "password_confirmation"},
  * )
  */
-class RegisterRequest extends FormRequest
+class UserStoreRequest extends FormRequest
 {
     public function authorize()
     {

@@ -180,6 +180,63 @@
                     }
                 ]
             }
+        },
+        "/api/v1/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get users",
+                "description": "Get Users",
+                "operationId": "UsersIndex",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Items per page.",
+                        "required": false,
+                        "schema": {
+                            "type": "numeric"
+                        },
+                        "example": "5"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": false,
+                        "schema": {
+                            "type": "numeric"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/UserResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -243,15 +300,15 @@
                     },
                     "name": {
                         "title": "name",
-                        "description": "name",
+                        "description": "user fullname",
                         "format": "string",
-                        "default": "name"
+                        "default": "jon snow"
                     },
                     "email": {
                         "title": "email",
                         "description": "email",
                         "format": "string",
-                        "default": "name@domain.com"
+                        "default": "jon.snow@example.com"
                     },
                     "roles": {
                         "title": "role",
@@ -269,19 +326,19 @@
                         "title": "created_at",
                         "description": "created_at",
                         "format": "date",
-                        "default": "2022-09-29 15:21:29"
+                        "default": "2024-01-29 15:21:29"
                     },
                     "updated_at": {
                         "title": "updated_at",
                         "description": "updated_at",
                         "format": "date",
-                        "default": "2022-09-29 15:21:29"
+                        "default": "2024-01-29 15:21:29"
                     },
                     "deleted_at": {
                         "title": "deleted_at",
                         "description": "deleted_at",
                         "format": "date",
-                        "default": "2022-09-29 15:21:29"
+                        "default": "2024-01-29 15:21:29"
                     }
                 },
                 "type": "object"

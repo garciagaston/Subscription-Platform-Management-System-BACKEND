@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -33,4 +35,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function scopeFilter(Builder $query, $request)
+    {
+        $filter = $query;
+        if (isset($request->name)) {
+            $filter = $query->where('name', 'like', "%{$request->name}%");
+        }
+        if (isset($request->email)) {
+            $filter = $query->where('email', 'like', "%{$request->email}%");
+        }
+        return $filter;
+    }
+
+    public function isAdmin()
+    {
+        return $this->roles()->where('name', 'admin')->exists();
+    }
 }
