@@ -574,12 +574,7 @@
                 "type": "object"
             },
             "UserUpdateRequest": {
-                "required": [
-                    "name",
-                    "email",
-                    "password",
-                    "password_confirmation"
-                ],
+                "required": [],
                 "properties": {
                     "name": {
                         "description": "user fullname",

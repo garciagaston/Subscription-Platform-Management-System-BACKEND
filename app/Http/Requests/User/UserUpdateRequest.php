@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @OA\Schema(
- *     required={"name", "email", "password", "password_confirmation"},
+ *     required={},
  * )
  */
 class UserUpdateRequest extends FormRequest
@@ -26,9 +26,9 @@ class UserUpdateRequest extends FormRequest
     {
         $user = $this->route('user');
         return [
-            'name' => 'required|string|max:250',
-            'email' => 'required|string|email|max:250|unique:users,email,' . $user->id,
-            'password' => 'required|string|min:8|max:50|confirmed',
+            'name' => 'sometimes|required|string|max:250',
+            'email' => 'sometimes|required|string|email|max:250|unique:users,email,' . $user->id,
+            'password' => 'sometimes|required|string|min:8|max:50|confirmed',
         ];
     }
 }

@@ -31,7 +31,7 @@ class UserPolicy
 
     public function destroy(User $user1, User $user2): bool
     {
-        if ($user1->id === $user2->id) {
+        if ($user2->id === $user1->id) {
             return true;
         }
         return $user1->isAdmin();
