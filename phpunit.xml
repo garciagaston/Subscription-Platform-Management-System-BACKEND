@@ -4,6 +4,8 @@
          bootstrap="vendor/autoload.php"
          colors="true"
          stopOnFailure="true"
+         cacheResult="true"
+         cacheResultFile=".phpunit.result.cache"
 >
     <testsuites>
         <testsuite name="Unit">

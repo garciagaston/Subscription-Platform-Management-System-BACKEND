@@ -55,6 +55,38 @@ final class AuthTest extends TestCase
         }
     }
 
+    public function testRegisterFail(): void
+    {
+        $password = $this->faker->password(8);
+        $data = [
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'password' => $password,
+            'password_confirmation' => "FAKE{$password}"
+        ];
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'X-Requested-With' => 'XMLHttpRequest'
+        ])->post('/api/v1/auth/register', $data);
+        TestsHelper::dumpApiResponsesWithErrors($response, Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonStructure([
+            'message',
+            'errors' => [
+                'password'
+            ]
+        ]);
+        $response->assertJson([
+            'message' => 'The password field confirmation does not match.',
+            'errors' => [
+                'password' => [
+                    'The password field confirmation does not match.'
+                ]
+            ]
+        ]);
+        $this->assertEquals(User::count(), 0, 'no user registered');
+    }
+
     public function testLoginSuccess(): void
     {
         $password = 'password';
