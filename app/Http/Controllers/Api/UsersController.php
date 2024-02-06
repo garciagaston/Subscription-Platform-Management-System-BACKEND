@@ -9,7 +9,6 @@ use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
@@ -54,6 +53,26 @@ class UsersController extends Controller
      *             type="numeric"
      *         )
      *     ),
+     *     @OA\Parameter(
+     *         name="name",
+     *         in="query",
+     *         description="name",
+     *         example="jon",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="email",
+     *         in="query",
+     *         description="email",
+     *         example="jon.snow@example.com",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -68,12 +87,12 @@ class UsersController extends Controller
      *     )
      * )
      *
-     * @param  Request $request
+     * @param  UserIndexRequest $request
      * @return AnonymousResourceCollection | JsonResponse
      */
     public function index(UserIndexRequest $request): AnonymousResourceCollection | JsonResponse
     {
-        $this->authorize('index', auth()->user());
+        $this->authorize('viewAny', auth()->user());
         $paginatedData = User::filter($request)->paginate($request->per_page ?? config('pagination.default_items'));
         return UserResource::collection($paginatedData);
     }
@@ -131,7 +150,7 @@ class UsersController extends Controller
      */
     public function show(User $user): JsonResponse
     {
-        $this->authorize('show', $user);
+        $this->authorize('view', $user);
         return response()->json([
             'status' => 'success',
             'data' => new UserResource($user)
@@ -184,12 +203,12 @@ class UsersController extends Controller
      *      @OA\Response(response=422, description="Unprocessable Entity")
      * )
      *
-     * @param  UserRequest $request
+     * @param  UserStoreRequest $request
      * @return JsonResponse
      */
     public function store(UserStoreRequest $request): JsonResponse
     {
-        $this->authorize('store', auth()->user());
+        $this->authorize('create', auth()->user());
         $user = User::create($request->validated());
         $user->assignRole('user');
         return response()->json([
@@ -255,7 +274,7 @@ class UsersController extends Controller
      *      @OA\Response(response=422, description="Unprocessable Entity")
      * )
      *
-     * @param  UserRequest $request
+     * @param  UserUpdateRequest $request
      * @return JsonResponse
      */
     public function update(UserUpdateRequest $request, User $user): JsonResponse
@@ -306,7 +325,7 @@ class UsersController extends Controller
      */
     public function destroy(User $user): JsonResponse
     {
-        $this->authorize('destroy', $user);
+        $this->authorize('delete', $user);
         $user->delete();
         return response()->json([
             'status' => 'success',

@@ -8,6 +8,14 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @OA\Schema(
  * )
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property object $roles
+ * @property string $created_at
+ * @property string $updated_at
+ * @property string $deleted_at
  */
 class UserResource extends JsonResource
 {
@@ -21,7 +29,8 @@ class UserResource extends JsonResource
      * @OA\Property(format="date", property="updated_at", title="updated_at", description="updated_at", default="2024-01-29 15:21:29"),
      * @OA\Property(format="date", property="deleted_at", title="deleted_at", description="deleted_at", default="2024-01-29 15:21:29"),
      *
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @param Request $request
+     * @return array
      */
     public function toArray(Request $request): array
     {
@@ -37,7 +46,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'role' => (array) optional($this->roles->first())->only('id', 'name'),
-            'permissions' => isset($permissions) ? (array) $permissions : null,
+            'permissions' => count($permissions) ? $permissions : null,
             'created_at' => optional($this->created_at)->toDateTimeString(),
             'updated_at' => optional($this->updated_at)->toDateTimeString(),
             'deleted_at' => optional($this->deleted_at)->toDateTimeString(),

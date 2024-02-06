@@ -24,6 +24,7 @@ class SubscriptionFactory extends Factory
             'active' => $this->faker->boolean(),
             'created_at' =>  now()->toDateTimeString(),
             'updated_at' =>  now()->toDateTimeString(),
+            'deleted_at' =>  null,
         ];
     }
 }

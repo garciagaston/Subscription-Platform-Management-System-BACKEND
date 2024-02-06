@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Subscription;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Subscription\SubscriptionRequest;
 
 class SubscriptionController extends Controller
 {
@@ -27,7 +28,7 @@ class SubscriptionController extends Controller
         //
     }
 
-    public function destroy(Subscription $subscription)
+    public function delete(Subscription $subscription)
     {
         //
     }

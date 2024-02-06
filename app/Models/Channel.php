@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -24,6 +25,21 @@ class Channel extends Model
     protected $casts = [
         'active' => 'boolean',
     ];
+
+    public function scopeFilter(Builder $query, $request)
+    {
+        $filter = $query;
+        if (isset($request->name)) {
+            $filter = $query->where('name', 'like', "%{$request->name}%");
+        }
+        if (isset($request->call_sign)) {
+            $filter = $query->where('call_sign', $request->call_sign);
+        }
+        if (isset($request->active)) {
+            $filter = $query->where('active', $request->active);
+        }
+        return $filter;
+    }
 
     public function packages(): BelongsToMany
     {

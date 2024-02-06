@@ -181,6 +181,73 @@
                 ]
             }
         },
+        "/api/v1/channels": {
+            "get": {
+                "tags": [
+                    "Channels"
+                ],
+                "summary": "Get channels",
+                "description": "Get Channels",
+                "operationId": "ChannelsIndex",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Items per page.",
+                        "required": false,
+                        "schema": {
+                            "type": "numeric"
+                        },
+                        "example": "5"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": false,
+                        "schema": {
+                            "type": "numeric"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ChannelResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/v1/users": {
             "get": {
                 "tags": [
@@ -219,6 +286,26 @@
                             "type": "numeric"
                         },
                         "example": "1"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "jon"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "jon.snow@example.com"
                     }
                 ],
                 "responses": {
@@ -599,6 +686,71 @@
                         "format": "string",
                         "example": "password1234",
                         "nullable": false
+                    }
+                },
+                "type": "object"
+            },
+            "ChannelResource": {
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id",
+                        "format": "int64",
+                        "default": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "TV channel name",
+                        "format": "string",
+                        "default": "HBO"
+                    },
+                    "image_url": {
+                        "title": "image_url",
+                        "description": "TV channel image url",
+                        "format": "string",
+                        "default": "https://via.placeholder.com/640x480.png/0011dd?text=eos"
+                    },
+                    "lineup_id": {
+                        "title": "lineup_id",
+                        "description": "TV channel lineup id",
+                        "format": "int64",
+                        "default": 1
+                    },
+                    "call_sign": {
+                        "title": "call_sign",
+                        "description": "TV channel call sign",
+                        "format": "string",
+                        "default": "HBO"
+                    },
+                    "active": {
+                        "title": "active",
+                        "description": "TV channel active",
+                        "format": "boolean",
+                        "default": true
+                    },
+                    "display_order": {
+                        "title": "display_order",
+                        "description": "TV channel display order",
+                        "format": "int64",
+                        "default": 1
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "TV channel created at",
+                        "format": "string",
+                        "default": "2024-01-01 00:00:00"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "TV channel updated at",
+                        "format": "string",
+                        "default": "2024-01-01 00:00:00"
+                    },
+                    "deleted_at": {
+                        "title": "deleted_at",
+                        "description": "TV channel deleted at",
+                        "format": "string",
+                        "default": "2024-01-01 00:00:00"
                     }
                 },
                 "type": "object"

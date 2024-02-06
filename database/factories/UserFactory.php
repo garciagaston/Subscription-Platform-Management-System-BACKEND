@@ -25,6 +25,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'created_at' =>  now()->toDateTimeString(),
             'updated_at' =>  now()->toDateTimeString(),
+            'deleted_at' =>  null,
         ];
     }
 }

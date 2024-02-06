@@ -20,6 +20,7 @@ class ChannelFactory extends Factory
             'display_order' => $this->faker->numberBetween(1, 100),
             'created_at' =>  now()->toDateTimeString(),
             'updated_at' =>  now()->toDateTimeString(),
+            'deleted_at' =>  null,
         ];
     }
 }

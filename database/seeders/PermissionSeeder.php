@@ -9,9 +9,12 @@ class PermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        Permission::create(['name' => 'view users', 'guard_name' => 'web']);
-        Permission::create(['name' => 'create users', 'guard_name' => 'web']);
-        Permission::create(['name' => 'edit users', 'guard_name' => 'web']);
-        Permission::create(['name' => 'delete users', 'guard_name' => 'web']);
+        $permissions = ['channels', 'users', 'packages', 'subscriptions'];
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => "view $permission", 'guard_name' => 'web']);
+            Permission::create(['name' => "create $permission", 'guard_name' => 'web']);
+            Permission::create(['name' => "edit $permission", 'guard_name' => 'web']);
+            Permission::create(['name' => "delete $permission", 'guard_name' => 'web']);
+        }
     }
 }

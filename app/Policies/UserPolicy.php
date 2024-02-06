@@ -6,34 +6,34 @@ use App\Models\User;
 
 class UserPolicy
 {
-    public function index(User $authenticatedUser): bool
+    public function viewAny(User $authenticatedUser): bool
     {
-        return $authenticatedUser->isAdmin() && $authenticatedUser->hasDirectPermission('view users');
+        return $authenticatedUser->isAdmin() && $authenticatedUser->hasPermissionTo('view users');
     }
 
-    public function show(User $user1, User $user2): bool
+    public function view(User $user1, User $user2): bool
     {
         if ($user1->id === $user2->id) {
             return true;
         }
-        return $user1->isAdmin() && $user1->hasDirectPermission('view users');
+        return $user1->isAdmin() && $user1->hasPermissionTo('view users');
     }
 
-    public function store(User $authenticatedUser): bool
+    public function create(User $authenticatedUser): bool
     {
-        return $authenticatedUser->isAdmin() && $authenticatedUser->hasDirectPermission('create users');
+        return $authenticatedUser->isAdmin() && $authenticatedUser->hasPermissionTo('create users');
     }
 
     public function update(User $authenticatedUser): bool
     {
-        return $authenticatedUser->isAdmin() && $authenticatedUser->hasDirectPermission('edit users');
+        return $authenticatedUser->isAdmin() && $authenticatedUser->hasPermissionTo('edit users');
     }
 
-    public function destroy(User $user1, User $user2): bool
+    public function delete(User $user1, User $user2): bool
     {
         if ($user1->id === $user2->id) {
             return true;
         }
-        return $user1->isAdmin() && $user1->hasDirectPermission('delete users');
+        return $user1->isAdmin() && $user1->hasPermissionTo('delete users');
     }
 }
