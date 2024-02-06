@@ -21,7 +21,6 @@ class SubscriptionFactory extends Factory
             'package_id' => optional(Package::inRandomOrder()->first())->id ?? Package::factory()->create()->id,
             'start_date' => $startDate,
             'end_date' => $endDate,
-            'active' => $this->faker->boolean(),
             'created_at' =>  now()->toDateTimeString(),
             'updated_at' =>  now()->toDateTimeString(),
             'deleted_at' =>  null,

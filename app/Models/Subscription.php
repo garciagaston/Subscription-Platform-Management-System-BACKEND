@@ -6,6 +6,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
@@ -20,11 +21,9 @@ class Subscription extends Model implements ContractsAuditable
         'package_id',
         'start_date',
         'end_date',
-        'active',
     ];
 
     protected $casts = [
-        'active' => 'boolean',
         'start_date' => 'datetime',
         'end_date' => 'datetime',
     ];
@@ -39,9 +38,14 @@ class Subscription extends Model implements ContractsAuditable
             $filter = $query->where('package_id', $request->package_id);
         }
         if (isset($request->active)) {
-            $filter = $query->where('active', $request->active);
+            $filter = $query->where('start_date', '<=', Carbon::now())->where('end_date', '>=', Carbon::now());
         }
         return $filter;
+    }
+
+    public function getActiveAttribute(): bool
+    {
+        return ($this->start_date <= Carbon::now()) && ($this->end_date >= Carbon::now());
     }
 
     public function user()

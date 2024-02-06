@@ -12,6 +12,7 @@
         "laravel/framework": "^10.10",
         "laravel/passport": "^11.10",
         "laravel/sanctum": "^3.3",
+        "laravel/telescope": "^4.17",
         "laravel/tinker": "^2.8",
         "mathiasgrimm/laravel-env-validator": "^1.1",
         "nunomaduro/laravel-desktop-notifier": "^2.7",

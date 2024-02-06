@@ -18,7 +18,6 @@ return new class () extends Migration {
             $table->bigInteger('package_id')->unsigned()->nullable();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->boolean('active');
             $table->timestamps();
             $table->softDeletes();
 
