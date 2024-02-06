@@ -49,7 +49,7 @@ class ChannelResource extends JsonResource
             'display_order' => $this->display_order,
             'created_at' => optional($this->created_at)->toDateTimeString(),
             'updated_at' => optional($this->updated_at)->toDateTimeString(),
-            'deleted_at' => optional($this->deleted_at)->toDateTimeString(),
+            'deleted_at' => optional($this->deleted_at)->toDateTimeString()
         ];
     }
 }
