@@ -52,6 +52,36 @@ class ChannelController extends Controller
      *             type="numeric"
      *         )
      *     ),
+     *     @OA\Parameter(
+     *         name="name",
+     *         in="query",
+     *         description="name",
+     *         example="HBO",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="call_sign",
+     *         in="query",
+     *         description="call_sign",
+     *         example="HBO",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="active",
+     *         in="query",
+     *         description="active",
+     *         example="1",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="bool"
+     *         )
+     *     ),
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",

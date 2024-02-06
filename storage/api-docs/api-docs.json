@@ -219,6 +219,36 @@
                             "type": "numeric"
                         },
                         "example": "1"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "HBO"
+                    },
+                    {
+                        "name": "call_sign",
+                        "in": "query",
+                        "description": "call_sign",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "HBO"
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "active",
+                        "required": false,
+                        "schema": {
+                            "type": "bool"
+                        },
+                        "example": "1"
                     }
                 ],
                 "responses": {
@@ -458,6 +488,662 @@
                                         },
                                         "data": {
                                             "$ref": "#/components/schemas/ChannelResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/packages": {
+            "get": {
+                "tags": [
+                    "Packages"
+                ],
+                "summary": "Get packages",
+                "description": "Get Packages",
+                "operationId": "PackagesIndex",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Items per page.",
+                        "required": false,
+                        "schema": {
+                            "type": "numeric"
+                        },
+                        "example": "5"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": false,
+                        "schema": {
+                            "type": "numeric"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "HBO"
+                    },
+                    {
+                        "name": "sku",
+                        "in": "query",
+                        "description": "sku",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "SKU1234"
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "active",
+                        "required": false,
+                        "schema": {
+                            "type": "bool"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/PackageResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/packages/{id}": {
+            "get": {
+                "tags": [
+                    "Packages"
+                ],
+                "summary": "Get Package",
+                "description": "Get package by ID",
+                "operationId": "GetPackage",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Package ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/PackageResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Packages"
+                ],
+                "summary": "Edit Package",
+                "operationId": "PackageUpdate",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Package ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PackageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/PackageResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Packages"
+                ],
+                "summary": "Delete Package",
+                "operationId": "PackageDelete",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Package ID",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/packages/": {
+            "post": {
+                "tags": [
+                    "Packages"
+                ],
+                "summary": "Create Package",
+                "operationId": "PackageStore",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PackageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/PackageResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/subscriptions": {
+            "get": {
+                "tags": [
+                    "Subscriptions"
+                ],
+                "summary": "Get subscriptions",
+                "description": "Get Subscriptions",
+                "operationId": "SubscriptionsIndex",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Items per page.",
+                        "required": false,
+                        "schema": {
+                            "type": "numeric"
+                        },
+                        "example": "5"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page",
+                        "required": false,
+                        "schema": {
+                            "type": "numeric"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "user_id",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "package_id",
+                        "in": "query",
+                        "description": "package_id",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "active",
+                        "required": false,
+                        "schema": {
+                            "type": "bool"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/SubscriptionResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/subscriptions/{id}": {
+            "get": {
+                "tags": [
+                    "Subscriptions"
+                ],
+                "summary": "Get Subscription",
+                "description": "Get subscription by ID",
+                "operationId": "GetSubscription",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Subscription ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SubscriptionResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Subscriptions"
+                ],
+                "summary": "Edit Subscription",
+                "operationId": "SubscriptionUpdate",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Subscription ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SubscriptionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SubscriptionResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Subscriptions"
+                ],
+                "summary": "Delete Subscription",
+                "operationId": "SubscriptionDelete",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Subscription ID",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/subscriptions/": {
+            "post": {
+                "tags": [
+                    "Subscriptions"
+                ],
+                "summary": "Create Subscription",
+                "operationId": "SubscriptionStore",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SubscriptionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SubscriptionResource"
                                         }
                                     },
                                     "type": "object"
@@ -905,6 +1591,83 @@
                 },
                 "type": "object"
             },
+            "PackageRequest": {
+                "required": [
+                    "name",
+                    "sku",
+                    "image_url",
+                    "active"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "package name",
+                        "format": "string",
+                        "example": "HBO",
+                        "nullable": false
+                    },
+                    "image_url": {
+                        "description": "image_url",
+                        "format": "string",
+                        "example": "https://via.placeholder.com/640x480.png/00aa22?text=illum",
+                        "nullable": false
+                    },
+                    "sku": {
+                        "description": "sku",
+                        "format": "string",
+                        "example": "SKU1234",
+                        "nullable": false
+                    },
+                    "active": {
+                        "description": "active",
+                        "format": "boolean",
+                        "example": "1",
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            },
+            "SubscriptionRequest": {
+                "required": [
+                    "user_id",
+                    "package_id",
+                    "start_date",
+                    "end_date",
+                    "active"
+                ],
+                "properties": {
+                    "user_id": {
+                        "description": "user_id",
+                        "format": "integer",
+                        "example": "1",
+                        "nullable": false
+                    },
+                    "package_id": {
+                        "description": "package_id",
+                        "format": "integer",
+                        "example": "1",
+                        "nullable": false
+                    },
+                    "start_date": {
+                        "description": "start_date",
+                        "format": "string",
+                        "example": "2024-01-01",
+                        "nullable": false
+                    },
+                    "end_date": {
+                        "description": "end_date",
+                        "format": "string",
+                        "example": "2024-01-01",
+                        "nullable": false
+                    },
+                    "active": {
+                        "description": "active",
+                        "format": "boolean",
+                        "example": "true",
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            },
             "UserStoreRequest": {
                 "required": [
                     "name",
@@ -1029,6 +1792,118 @@
                     "deleted_at": {
                         "title": "deleted_at",
                         "description": "TV channel deleted at",
+                        "format": "string",
+                        "default": "2024-01-01 00:00:00"
+                    }
+                },
+                "type": "object"
+            },
+            "PackageResource": {
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id",
+                        "format": "int64",
+                        "default": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "Package name",
+                        "format": "string",
+                        "default": "Package 1"
+                    },
+                    "sku": {
+                        "title": "sku",
+                        "description": "sku",
+                        "format": "string",
+                        "default": "PACKAGE1234"
+                    },
+                    "image_url": {
+                        "title": "image_url",
+                        "description": "Package image url",
+                        "format": "string",
+                        "default": "https://via.placeholder.com/640x480.png/0011dd?text=eos"
+                    },
+                    "active": {
+                        "title": "active",
+                        "description": "Package active",
+                        "format": "boolean",
+                        "default": true
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "Package created at",
+                        "format": "string",
+                        "default": "2024-01-01 00:00:00"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "Package updated at",
+                        "format": "string",
+                        "default": "2024-01-01 00:00:00"
+                    },
+                    "deleted_at": {
+                        "title": "deleted_at",
+                        "description": "Package deleted at",
+                        "format": "string",
+                        "default": "2024-01-01 00:00:00"
+                    }
+                },
+                "type": "object"
+            },
+            "SubscriptionResource": {
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id",
+                        "format": "int64",
+                        "default": 1
+                    },
+                    "user_id": {
+                        "title": "user_id",
+                        "description": "user_id",
+                        "format": "integer",
+                        "default": "1"
+                    },
+                    "package_id": {
+                        "title": "package_id",
+                        "description": "package_id",
+                        "format": "integer",
+                        "default": "1"
+                    },
+                    "start_date": {
+                        "title": "start_date",
+                        "description": "start_date",
+                        "format": "string",
+                        "default": "2024-01-01 00:00:00"
+                    },
+                    "end_date": {
+                        "title": "end_date",
+                        "description": "end_date",
+                        "format": "string",
+                        "default": "2024-01-01 00:00:00"
+                    },
+                    "active": {
+                        "title": "active",
+                        "description": "Package active",
+                        "format": "boolean",
+                        "default": true
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "Package created at",
+                        "format": "string",
+                        "default": "2024-01-01 00:00:00"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "Package updated at",
+                        "format": "string",
+                        "default": "2024-01-01 00:00:00"
+                    },
+                    "deleted_at": {
+                        "title": "deleted_at",
+                        "description": "Package deleted at",
                         "format": "string",
                         "default": "2024-01-01 00:00:00"
                     }

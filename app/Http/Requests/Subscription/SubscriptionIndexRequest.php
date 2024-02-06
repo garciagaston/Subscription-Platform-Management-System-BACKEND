@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Channel;
+namespace App\Http\Requests\Subscription;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChannelIndexRequest extends FormRequest
+class SubscriptionIndexRequest extends FormRequest
 {
     public function authorize()
     {
@@ -16,8 +16,8 @@ class ChannelIndexRequest extends FormRequest
         return [
             'page' => 'sometimes|nullable|int',
             'per_page' => 'sometimes|nullable|int',
-            'name' => 'sometimes|nullable|string',
-            'call_sign' => 'sometimes|nullable|string',
+            'user_id' => 'sometimes|nullable|int|exists:App\Models\User,id',
+            'package_id' => 'sometimes|nullable|int|exists:App\Models\Package,id',
             'active' => 'sometimes|nullable|boolean'
         ];
     }

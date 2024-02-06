@@ -7,38 +7,28 @@ use App\Models\User;
 
 class PackagePolicy
 {
-    public function viewAny(User $user): bool
+    public function viewAny(User $authenticatedUser): bool
     {
-        return true;
+        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('view any packages');
     }
 
     public function view(User $user, Package $package): bool
     {
-        return true;
+        return $user->isAdmin() || $user->hasPermissionTo('view packages');
     }
 
-    public function create(User $user): bool
+    public function create(User $authenticatedUser): bool
     {
-        return true;
+        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('create packages');
     }
 
-    public function update(User $user, Package $package): bool
+    public function update(User $authenticatedUser): bool
     {
-        return true;
+        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('edit packages');
     }
 
     public function delete(User $user, Package $package): bool
     {
-        return true;
-    }
-
-    public function restore(User $user, Package $package): bool
-    {
-        return true;
-    }
-
-    public function forceDelete(User $user, Package $package): bool
-    {
-        return true;
+        return $user->isAdmin() || $user->hasPermissionTo('delete packages');
     }
 }

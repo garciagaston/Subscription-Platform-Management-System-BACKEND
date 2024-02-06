@@ -29,11 +29,11 @@ class Subscription extends Model
     public function scopeFilter(Builder $query, $request)
     {
         $filter = $query;
-        if (isset($request->name)) {
-            $filter = $query->where('name', 'like', "%{$request->name}%");
+        if (isset($request->user_id)) {
+            $filter = $query->where('user_id', $request->user_id);
         }
-        if (isset($request->sku)) {
-            $filter = $query->where('sku', $request->sku);
+        if (isset($request->package_id)) {
+            $filter = $query->where('package_id', $request->package_id);
         }
         if (isset($request->active)) {
             $filter = $query->where('active', $request->active);
