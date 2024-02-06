@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\PackageHelper;
 use App\Models\Package;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PackageResource;
 use App\Models\Channel;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class PackageChannelController extends Controller
 {
@@ -78,12 +81,20 @@ class PackageChannelController extends Controller
      */
     public function attach(Package $package, Channel $channel): JsonResponse
     {
-        $this->authorize('attach', Package::class);
-        $package->channels()->syncWithoutDetaching($channel);
-        return response()->json([
-            'status' => 'success',
-            'data' => new PackageResource($package)
-        ], Response::HTTP_CREATED);
+        try {
+            DB::beginTransaction();
+            $this->authorize('attach', Package::class);
+            PackageHelper::attachChannelToPackage($package, $channel);
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'data' => new PackageResource($package)
+            ], Response::HTTP_CREATED);
+        } catch (Exception $e) {
+            DB::rollback();
+            logger()->error($e->getMessage());
+            return response()->json(['message' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -153,11 +164,19 @@ class PackageChannelController extends Controller
      */
     public function detach(Package $package, Channel $channel): JsonResponse
     {
-        $this->authorize('detach', Package::class);
-        $package->channels()->detach($channel);
-        return response()->json([
-            'status' => 'success',
-            'data' => new PackageResource($package)
-        ], Response::HTTP_OK);
+        try {
+            DB::beginTransaction();
+            $this->authorize('detach', Package::class);
+            PackageHelper::detachChannelToPackage($package, $channel);
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'data' => new PackageResource($package)
+            ], Response::HTTP_OK);
+        } catch (Exception $e) {
+            DB::rollback();
+            logger()->error($e->getMessage());
+            return response()->json(['message' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+        }
     }
 }
