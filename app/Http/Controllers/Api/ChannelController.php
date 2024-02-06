@@ -217,7 +217,7 @@ class ChannelController extends Controller
      */
     public function store(ChannelRequest $request): JsonResponse
     {
-        $this->authorize('create', auth()->user());
+        $this->authorize('create', Channel::class);
         $channel = Channel::create($request->validated());
         return response()->json([
             'status' => 'success',

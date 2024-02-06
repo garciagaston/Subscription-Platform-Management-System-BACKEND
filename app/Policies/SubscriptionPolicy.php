@@ -19,7 +19,7 @@ class SubscriptionPolicy
 
     public function create(User $authenticatedUser): bool
     {
-        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('create subscriptions');
+        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('create subscriptions') || $authenticatedUser->id === request()->user_id;
     }
 
     public function update(User $authenticatedUser): bool

@@ -66,7 +66,7 @@ final class SubscriptionsTest extends TestCase
         ]);
     }
 
-    public function testStoreSuccess(): void
+    public function testStoreSuccessWithAdmin(): void
     {
         $startDate = $this->faker->dateTimeBetween('-2 month', '+1 week')->format('Y-m-d H:i:s');
         $endDate = Carbon::parse($startDate)->addMonth()->toDateTimeString();
@@ -97,6 +97,63 @@ final class SubscriptionsTest extends TestCase
         foreach ($data as $key => $value) {
             $this->assertEquals($subscription->$key, $value, "key {$key}");
         }
+    }
+
+    public function testStoreSuccessWithUser(): void
+    {
+        $startDate = $this->faker->dateTimeBetween('-2 month', '+1 week')->format('Y-m-d H:i:s');
+        $endDate = Carbon::parse($startDate)->addMonth()->toDateTimeString();
+        $data = [
+            'user_id' => $this->user->id,
+            'package_id' => optional(Package::inRandomOrder()->first())->id ?? Package::factory()->create()->id,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'active' => $this->faker->boolean(),
+        ];
+        $this->assertEquals(Subscription::count(), 0);
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'X-Requested-With' => 'XMLHttpRequest',
+        ])->actingAs($this->user)->post("/api/v1/subscriptions", $data);
+        TestsHelper::dumpApiResponsesWithErrors($response, Response::HTTP_CREATED);
+        $response->assertStatus(Response::HTTP_CREATED);
+        $response->assertJsonStructure([
+            'status',
+            'data'
+        ]);
+        $this->assertEquals(Subscription::count(), 1, 'subscription created');
+        $subscription = Subscription::firstOrFail();
+        $response->assertJson([
+            'status' => 'success',
+            'data' => (new SubscriptionResource($subscription))->toArray(new Request())
+        ]);
+        foreach ($data as $key => $value) {
+            $this->assertEquals($subscription->$key, $value, "key {$key}");
+        }
+    }
+
+    public function testStoreFailWithUser(): void
+    {
+        $startDate = $this->faker->dateTimeBetween('-2 month', '+1 week')->format('Y-m-d H:i:s');
+        $endDate = Carbon::parse($startDate)->addMonth()->toDateTimeString();
+        $data = [
+            'user_id' => User::factory()->create()->id,
+            'package_id' => optional(Package::inRandomOrder()->first())->id ?? Package::factory()->create()->id,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'active' => $this->faker->boolean(),
+        ];
+        $this->assertEquals(Subscription::count(), 0);
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'X-Requested-With' => 'XMLHttpRequest',
+        ])->actingAs($this->user)->post("/api/v1/subscriptions", $data);
+        TestsHelper::dumpApiResponsesWithErrors($response, Response::HTTP_FORBIDDEN);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+        $this->assertEquals(Subscription::count(), 0);
+        $response->assertJson([
+            'message' => 'This action is unauthorized.',
+        ]);
     }
 
     public function testUpdateSuccess(): void

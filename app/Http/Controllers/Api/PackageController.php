@@ -217,7 +217,7 @@ class PackageController extends Controller
      */
     public function store(PackageRequest $request): JsonResponse
     {
-        $this->authorize('create', auth()->user());
+        $this->authorize('create', Package::class);
         $package = Package::create($request->validated());
         return response()->json([
             'status' => 'success',

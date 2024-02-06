@@ -15,6 +15,8 @@
         "laravel/tinker": "^2.8",
         "mathiasgrimm/laravel-env-validator": "^1.1",
         "nunomaduro/laravel-desktop-notifier": "^2.7",
+        "owen-it/laravel-auditing": "^13.6",
+        "predis/predis": "^2.2",
         "spatie/laravel-permission": "^6.3"
     },
     "require-dev": {

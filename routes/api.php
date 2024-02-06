@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ChannelController;
+use App\Http\Controllers\Api\PackageChannelController;
 use App\Http\Controllers\Api\PackageController;
 use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\UsersController;
@@ -33,6 +34,10 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
 
         // PACKAGE ENDPOINTS
         Route::apiResource('packages', PackageController::class);
+
+        // PACKAGE // CHANNELS ENDPOINTS
+        Route::post('/packages/{package}/channels/{channel}', [PackageChannelController::class, 'attach'])->name('attach');
+        Route::delete('/packages/{package}/channels/{channel}', [PackageChannelController::class, 'detach'])->name('detach');
 
         // SUBSCRIPTION ENDPOINTS
         Route::apiResource('subscriptions', SubscriptionController::class);

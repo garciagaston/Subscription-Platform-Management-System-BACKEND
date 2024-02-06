@@ -217,7 +217,7 @@ class SubscriptionController extends Controller
      */
     public function store(SubscriptionRequest $request): JsonResponse
     {
-        $this->authorize('create', auth()->user());
+        $this->authorize('create', Subscription::class);
         $subscription = Subscription::create($request->validated());
         return response()->json([
             'status' => 'success',

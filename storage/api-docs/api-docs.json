@@ -509,6 +509,156 @@
                 ]
             }
         },
+        "/api/v1/packages/{packageId}/channels/{channelId}": {
+            "post": {
+                "tags": [
+                    "Packages"
+                ],
+                "summary": "Attach a channel to a package",
+                "description": "Attach a channel to a package",
+                "operationId": "PackageChannelAttach",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "packageId",
+                        "in": "path",
+                        "description": "Package ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "channelId",
+                        "in": "path",
+                        "description": "Channel ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/PackageResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Packages"
+                ],
+                "summary": "Detach a channel from a package",
+                "description": "Detach a channel from a package",
+                "operationId": "PackageChannelDetach",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "packageId",
+                        "in": "path",
+                        "description": "Package ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "channelId",
+                        "in": "path",
+                        "description": "Channel ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/PackageResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/v1/packages": {
             "get": {
                 "tags": [
@@ -1847,6 +1997,14 @@
                         "description": "Package deleted at",
                         "format": "string",
                         "default": "2024-01-01 00:00:00"
+                    },
+                    "channels": {
+                        "description": "channels",
+                        "type": "array",
+                        "format": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ChannelResource"
+                        }
                     }
                 },
                 "type": "object"

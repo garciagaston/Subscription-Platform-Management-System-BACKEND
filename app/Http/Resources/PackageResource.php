@@ -17,6 +17,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
+ * @property object $channels
  */
 class PackageResource extends JsonResource
 {
@@ -29,6 +30,7 @@ class PackageResource extends JsonResource
      * @OA\Property(format="string", property="created_at", title="created_at", description="Package created at", default="2024-01-01 00:00:00"),
      * @OA\Property(format="string", property="updated_at", title="updated_at", description="Package updated at", default="2024-01-01 00:00:00"),
      * @OA\Property(format="string", property="deleted_at", title="deleted_at", description="Package deleted at", default="2024-01-01 00:00:00"),
+     * @OA\Property(format="array", type="array", property="channels", description="channels", @OA\Items( ref="#/components/schemas/ChannelResource") ),
      *
      * @param Request $request
      * @return array
@@ -44,6 +46,7 @@ class PackageResource extends JsonResource
             'created_at' => optional($this->created_at)->toDateTimeString(),
             'updated_at' => optional($this->updated_at)->toDateTimeString(),
             'deleted_at' => optional($this->deleted_at)->toDateTimeString(),
+            'channels' => ChannelResource::collection($this->channels)->toArray(new Request()),
         ];
     }
 }

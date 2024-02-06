@@ -31,4 +31,14 @@ class PackagePolicy
     {
         return $user->isAdmin() || $user->hasPermissionTo('delete packages');
     }
+
+    public function attach(User $user): bool
+    {
+        return $user->isAdmin() || $user->hasPermissionTo('attach packages channels');
+    }
+
+    public function detach(User $user): bool
+    {
+        return $user->isAdmin() || $user->hasPermissionTo('detach packages channels');
+    }
 }

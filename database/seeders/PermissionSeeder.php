@@ -21,5 +21,8 @@ class PermissionSeeder extends Seeder
             Log::info("{$permission} permissions created.");
             $this->command->info("{$permission} permissions created.");
         }
+
+        Permission::create(['name' => "attach packages channels", 'guard_name' => 'web']);
+        Permission::create(['name' => "detach packages channels", 'guard_name' => 'web']);
     }
 }
