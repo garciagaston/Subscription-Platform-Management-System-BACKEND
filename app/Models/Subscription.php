@@ -6,11 +6,14 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
-class Subscription extends Model
+class Subscription extends Model implements ContractsAuditable
 {
     use HasFactory;
     use SoftDeletes;
+    use Auditable;
 
     protected $fillable = [
         'user_id',
