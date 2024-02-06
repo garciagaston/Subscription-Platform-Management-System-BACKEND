@@ -248,6 +248,237 @@
                 ]
             }
         },
+        "/api/v1/channels/{id}": {
+            "get": {
+                "tags": [
+                    "Channels"
+                ],
+                "summary": "Get Channel",
+                "description": "Get channel by ID",
+                "operationId": "GetChannel",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Channel ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ChannelResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Channels"
+                ],
+                "summary": "Edit Channel",
+                "operationId": "ChannelUpdate",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Channel ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChannelRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ChannelResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Channels"
+                ],
+                "summary": "Delete Channel",
+                "operationId": "ChannelDelete",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Channel ID",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/channels/": {
+            "post": {
+                "tags": [
+                    "Channels"
+                ],
+                "summary": "Create Channel",
+                "operationId": "ChannelStore",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Oauth2 token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChannelRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ChannelResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/v1/users": {
             "get": {
                 "tags": [
@@ -620,6 +851,55 @@
                         "description": "user password confirmation",
                         "format": "string",
                         "example": "password1234",
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            },
+            "ChannelRequest": {
+                "required": [
+                    "name",
+                    "image_url",
+                    "lineup_id",
+                    "call_sign",
+                    "active",
+                    "display_order"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "channel name",
+                        "format": "string",
+                        "example": "HBO",
+                        "nullable": false
+                    },
+                    "image_url": {
+                        "description": "image_url",
+                        "format": "string",
+                        "example": "https://via.placeholder.com/640x480.png/00aa22?text=illum",
+                        "nullable": false
+                    },
+                    "lineup_id": {
+                        "description": "lineup_id",
+                        "format": "integer",
+                        "example": "1",
+                        "nullable": false
+                    },
+                    "call_sign": {
+                        "description": "call_sign",
+                        "format": "string",
+                        "example": "HBO",
+                        "nullable": false
+                    },
+                    "active": {
+                        "description": "active",
+                        "format": "boolean",
+                        "example": "1",
+                        "nullable": false
+                    },
+                    "display_order": {
+                        "description": "display_order",
+                        "format": "integer",
+                        "example": "1",
                         "nullable": false
                     }
                 },

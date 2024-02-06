@@ -7,28 +7,28 @@ use App\Models\User;
 
 class ChannelPolicy
 {
-    public function viewAny(User $user): bool
+    public function viewAny(User $authenticatedUser): bool
     {
-        return true;
+        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('view any channels');
     }
 
     public function view(User $user, Channel $channel): bool
     {
-        return true;
+        return $user->isAdmin() || $user->hasPermissionTo('view channels');
     }
 
-    public function create(User $user): bool
+    public function create(User $authenticatedUser): bool
     {
-        return true;
+        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('create channels');
     }
 
-    public function update(User $user, Channel $channel): bool
+    public function update(User $authenticatedUser): bool
     {
-        return true;
+        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('edit channels');
     }
 
     public function delete(User $user, Channel $channel): bool
     {
-        return true;
+        return $user->isAdmin() || $user->hasPermissionTo('delete channels');
     }
 }

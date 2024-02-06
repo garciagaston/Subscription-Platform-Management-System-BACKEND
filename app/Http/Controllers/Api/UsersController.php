@@ -274,7 +274,8 @@ class UsersController extends Controller
      *      @OA\Response(response=422, description="Unprocessable Entity")
      * )
      *
-     * @param  UserUpdateRequest $request
+     * @param UserUpdateRequest $request
+     * @param User $user
      * @return JsonResponse
      */
     public function update(UserUpdateRequest $request, User $user): JsonResponse

@@ -11,6 +11,7 @@ class PermissionSeeder extends Seeder
     {
         $permissions = ['channels', 'users', 'packages', 'subscriptions'];
         foreach ($permissions as $permission) {
+            Permission::create(['name' => "view any $permission", 'guard_name' => 'web']);
             Permission::create(['name' => "view $permission", 'guard_name' => 'web']);
             Permission::create(['name' => "create $permission", 'guard_name' => 'web']);
             Permission::create(['name' => "edit $permission", 'guard_name' => 'web']);

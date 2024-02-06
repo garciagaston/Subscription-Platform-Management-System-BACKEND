@@ -65,6 +65,16 @@
             "@php artisan l5-swagger:generate",
             "@php artisan migrate",
             "@php artisan test"
+        ],
+        "dev-light": [
+            "@php artisan optimize:clear",
+            "@php artisan route:cache ",
+            "./vendor/bin/pint",
+            "./vendor/bin/phplint",
+            "./vendor/bin/phpstan analyse",
+            "@php artisan l5-swagger:generate",
+            "@php artisan migrate",
+            "@php artisan test"
         ]
     },
     "extra": {

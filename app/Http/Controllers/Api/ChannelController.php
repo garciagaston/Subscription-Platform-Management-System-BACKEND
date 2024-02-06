@@ -9,6 +9,7 @@ use App\Http\Requests\Channel\ChannelRequest;
 use App\Http\Resources\ChannelResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class ChannelController extends Controller
 {
@@ -75,23 +76,239 @@ class ChannelController extends Controller
         return ChannelResource::collection($paginatedData);
     }
 
-    public function store(ChannelRequest $request)
+    /**
+     * Get channel by ID
+     *
+     * @OA\Get(
+     *     path="/api/v1/channels/{id}",
+     *     tags={"Channels"},
+     *     summary="Get Channel",
+     *     operationId="GetChannel",
+     *     security={ {"bearer_token": {} }},
+     *     @OA\Parameter(
+     *         name="Authorization",
+     *         in="header",
+     *         description="Oauth2 token",
+     *         example="Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Channel ID",
+     *         example="1",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  type="bool",
+     *                  default=true,
+     *                  property="success"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/components/schemas/ChannelResource"
+     *              )
+     *         )
+     *     )
+     * )
+     *
+     * @param Channel $channel
+     * @return JsonResponse
+     */
+    public function show(Channel $channel): JsonResponse
     {
-        //
+        $this->authorize('view', $channel);
+        return response()->json([
+            'status' => 'success',
+            'data' => new ChannelResource($channel)
+        ], Response::HTTP_OK);
     }
 
-    public function show(Channel $channel)
+    /**
+     * @OA\Post(
+     *     path="/api/v1/channels/",
+     *     tags={"Channels"},
+     *     summary="Create Channel",
+     *     operationId="ChannelStore",
+     *     security={ {"bearer_token": {} }},
+     *     @OA\Parameter(
+     *         name="Authorization",
+     *         in="header",
+     *         description="Oauth2 token",
+     *         example="Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 ref="#/components/schemas/ChannelRequest",
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  type="bool",
+     *                  default=true,
+     *                  property="success"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/components/schemas/ChannelResource"
+     *              )
+     *         )
+     *     ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=422, description="Unprocessable Entity")
+     * )
+     *
+     * @param ChannelRequest $request
+     * @return JsonResponse
+     */
+    public function store(ChannelRequest $request): JsonResponse
     {
-        //
+        $this->authorize('create', auth()->user());
+        $channel = Channel::create($request->validated());
+        return response()->json([
+            'status' => 'success',
+            'data' => new ChannelResource($channel)
+        ], Response::HTTP_CREATED);
     }
 
-    public function update(ChannelRequest $request, Channel $channel)
+    /**
+     * @OA\Put(
+     *     path="/api/v1/channels/{id}",
+     *     tags={"Channels"},
+     *     summary="Edit Channel",
+     *     operationId="ChannelUpdate",
+     *     security={ {"bearer_token": {} }},
+     *     @OA\Parameter(
+     *         name="Authorization",
+     *         in="header",
+     *         description="Oauth2 token",
+     *         example="Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Channel ID",
+     *         example="1",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 ref="#/components/schemas/ChannelRequest",
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  type="bool",
+     *                  default=true,
+     *                  property="success"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/components/schemas/ChannelResource"
+     *              )
+     *         )
+     *     ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=422, description="Unprocessable Entity")
+     * )
+     *
+     * @param ChannelRequest $request
+     * @param Channel $channel
+     * @return JsonResponse
+     */
+    public function update(ChannelRequest $request, Channel $channel): JsonResponse
     {
-        //
+        $this->authorize('update', $channel);
+        $channel->update($request->validated());
+        return response()->json([
+            'status' => 'success',
+            'data' => new ChannelResource($channel)
+        ], Response::HTTP_OK);
     }
 
-    public function destroy(Channel $channel)
+    /**
+     * @OA\Delete(
+     *     path="/api/v1/channels/{id}",
+     *     tags={"Channels"},
+     *     summary="Delete Channel",
+     *     operationId="ChannelDelete",
+     *     security={ {"bearer_token": {} }},
+     *     @OA\Parameter(
+     *         name="Authorization",
+     *         in="header",
+     *         description="Oauth2 token",
+     *         example="Bearer 1|iQ04fCi7gNIVCWnhgxubNJrdrIINlgnUkixEPfaA",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Channel ID",
+     *         example="1",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="numeric"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response=204,
+     *          description="Successful operation",
+     *     ),
+     * )
+     *
+     * @param Channel $channel
+     * @return JsonResponse
+     */
+    public function destroy(Channel $channel): JsonResponse
     {
-        //
+        $this->authorize('delete', $channel);
+        $channel->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Channel deleted successfully.'
+        ], Response::HTTP_OK);
     }
 }
