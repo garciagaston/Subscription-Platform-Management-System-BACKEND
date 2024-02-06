@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Permission;
 
 class PermissionSeeder extends Seeder
@@ -16,6 +17,9 @@ class PermissionSeeder extends Seeder
             Permission::create(['name' => "create $permission", 'guard_name' => 'web']);
             Permission::create(['name' => "edit $permission", 'guard_name' => 'web']);
             Permission::create(['name' => "delete $permission", 'guard_name' => 'web']);
+
+            Log::info("{$permission} permissions created.");
+            $this->command->info("{$permission} permissions created.");
         }
     }
 }

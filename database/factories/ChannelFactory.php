@@ -11,11 +11,12 @@ class ChannelFactory extends Factory
 
     public function definition(): array
     {
+        $name = $this->faker->lexify('???????????');
         return [
-            'name' => $this->faker->name(),
+            'name' => $name,
             'image_url' => $this->faker->imageUrl(),
             'lineup_id' => $this->faker->numberBetween(1, 100),
-            'call_sign' => $this->faker->lexify('????'),
+            'call_sign' => strtoupper($name),
             'active' => $this->faker->boolean(),
             'display_order' => $this->faker->numberBetween(1, 100),
             'created_at' =>  now()->toDateTimeString(),

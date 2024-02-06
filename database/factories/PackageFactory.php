@@ -13,7 +13,7 @@ class PackageFactory extends Factory
     {
         return [
             'name' => $this->faker->lexify('????????'),
-            'sku' => $this->faker->lexify('????????'),
+            'sku' => strtoupper($this->faker->lexify('SKU????????')),
             'image_url' => $this->faker->imageUrl(),
             'active' => $this->faker->boolean(),
             'created_at' =>  now()->toDateTimeString(),

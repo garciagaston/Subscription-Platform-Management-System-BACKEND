@@ -15,8 +15,7 @@ class UserFactory extends Factory
 
     public function definition(): array
     {
-        $name = $this->faker->firstName().' '.$this->faker->lastName();
-
+        $name = trim($this->faker->firstName().' '.$this->faker->lastName());
         return [
             'name' => $name,
             'email' => trim(strtolower(str_replace(' ', '.', $name).$this->faker->numerify('.###').'@fake.com')),

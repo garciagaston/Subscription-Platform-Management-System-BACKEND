@@ -68,7 +68,7 @@ final class SubscriptionsTest extends TestCase
 
     public function testStoreSuccess(): void
     {
-        $startDate = $this->faker->dateTimeBetween('-1 week', '+1 week')->format('Y-m-d H:i:s');
+        $startDate = $this->faker->dateTimeBetween('-2 month', '+1 week')->format('Y-m-d H:i:s');
         $endDate = Carbon::parse($startDate)->addMonth()->toDateTimeString();
         $data = [
             'user_id' => optional(User::inRandomOrder()->first())->id ?? User::factory()->create()->id,
@@ -102,7 +102,7 @@ final class SubscriptionsTest extends TestCase
     public function testUpdateSuccess(): void
     {
         $subscription = Subscription::factory()->create();
-        $startDate = $this->faker->dateTimeBetween('-1 week', '+1 week')->format('Y-m-d H:i:s');
+        $startDate = $this->faker->dateTimeBetween('-2 month', '+1 week')->format('Y-m-d H:i:s');
         $endDate = Carbon::parse($startDate)->addMonth()->toDateTimeString();
         $data = [
             'user_id' => optional(User::inRandomOrder()->first())->id ?? User::factory()->create()->id,

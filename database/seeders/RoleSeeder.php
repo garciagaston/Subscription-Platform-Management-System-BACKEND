@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -13,8 +14,13 @@ class RoleSeeder extends Seeder
         // ADMIN ROLE
         $adminRole = Role::create(['name' => 'admin', 'guard_name' => 'web']);
         $adminRole->givePermissionTo(Permission::where('guard_name', 'web')->get());
+        Log::info("Admin Role created.");
+        $this->command->info("Admin Role created.");
 
         // USER ROLE
         Role::create(['name' => 'user', 'guard_name' => 'web']);
+        Log::info("User Role created.");
+        $this->command->info("User Role created.");
+
     }
 }

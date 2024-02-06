@@ -43,7 +43,7 @@ class Channel extends Model
 
     public function packages(): BelongsToMany
     {
-        return $this->belongsToMany(Package::class, 'channel_package', 'channel_id', 'package_id');
+        return $this->belongsToMany(Package::class, 'package_channel', 'channel_id', 'package_id')->withTimestamps();
     }
 
 }
