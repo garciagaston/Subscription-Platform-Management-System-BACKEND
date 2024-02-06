@@ -21,8 +21,10 @@ class UserFactory extends Factory
             'name' => $name,
             'email' => trim(strtolower(str_replace(' ', '.', $name).$this->faker->numerify('.###').'@fake.com')),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => static::$password ?? Hash::make('password'),
             'remember_token' => Str::random(10),
+            'created_at' =>  now()->toDateTimeString(),
+            'updated_at' =>  now()->toDateTimeString(),
         ];
     }
 }
