@@ -139,7 +139,6 @@ final class SubscriptionsTest extends TestCase
             'package_id' => optional(Package::inRandomOrder()->first())->id ?? Package::factory()->create()->id,
             'start_date' => $startDate,
             'end_date' => $endDate,
-            'active' => $this->faker->boolean(),
         ];
         $this->assertEquals(Subscription::count(), 0);
         $response = $this->withHeaders([
@@ -164,7 +163,6 @@ final class SubscriptionsTest extends TestCase
             'package_id' => optional(Package::inRandomOrder()->first())->id ?? Package::factory()->create()->id,
             'start_date' => $startDate,
             'end_date' => $endDate,
-            'active' => $this->faker->boolean(),
         ];
         $response = $this->withHeaders([
             'Accept' => 'application/json',
