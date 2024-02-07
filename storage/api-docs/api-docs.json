@@ -2047,6 +2047,9 @@
                         "format": "boolean",
                         "default": true
                     },
+                    "package": {
+                        "$ref": "#/components/schemas/PackageResource"
+                    },
                     "created_at": {
                         "title": "created_at",
                         "description": "Package created at",
@@ -2099,6 +2102,14 @@
                         "description": "permissions",
                         "format": "array",
                         "default": "[]"
+                    },
+                    "subscriptions": {
+                        "description": "subscriptions",
+                        "type": "array",
+                        "format": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SubscriptionResource"
+                        }
                     },
                     "created_at": {
                         "title": "created_at",
