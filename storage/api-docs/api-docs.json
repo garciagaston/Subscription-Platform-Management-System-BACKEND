@@ -1695,6 +1695,7 @@
             "ChannelRequest": {
                 "required": [
                     "name",
+                    "description",
                     "image_url",
                     "lineup_id",
                     "call_sign",
@@ -1706,6 +1707,12 @@
                         "description": "channel name",
                         "format": "string",
                         "example": "HBO",
+                        "nullable": false
+                    },
+                    "description": {
+                        "description": "channel description",
+                        "format": "string",
+                        "example": "description",
                         "nullable": false
                     },
                     "image_url": {

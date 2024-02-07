@@ -13,6 +13,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $name
  * @property string $email
  * @property object $roles
+ * @property array $permissions
+ * @property array $subscriptions
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at

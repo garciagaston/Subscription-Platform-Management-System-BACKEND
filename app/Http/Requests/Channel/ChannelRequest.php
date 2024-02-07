@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @OA\Schema(
- *     required={"name", "image_url", "lineup_id", "call_sign", "active", "display_order"},
+ *     required={"name", "description", "image_url", "lineup_id", "call_sign", "active", "display_order"},
  * )
  */
 class ChannelRequest extends FormRequest
@@ -18,6 +18,7 @@ class ChannelRequest extends FormRequest
 
     /**
      * @OA\Property(format="string", property="name", description="channel name", example="HBO", nullable=false)
+     * @OA\Property(format="string", property="description", description="channel description", example="description", nullable=false)
      * @OA\Property(format="string", property="image_url", description="image_url", example="https://via.placeholder.com/640x480.png/00aa22?text=illum", nullable=false)
      * @OA\Property(format="integer", property="lineup_id", description="lineup_id", example="1", nullable=false)
      * @OA\Property(format="string", property="call_sign", description="call_sign", example="HBO", nullable=false)
@@ -28,6 +29,7 @@ class ChannelRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:250',
+            'description' => 'required|string|max:250',
             'image_url' => 'required|string|url',
             'lineup_id' => 'required|integer',
             'call_sign' => 'required|string',

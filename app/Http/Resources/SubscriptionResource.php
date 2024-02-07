@@ -15,6 +15,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $start_date
  * @property string $end_date
  * @property bool $active
+ * @property object $package
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
