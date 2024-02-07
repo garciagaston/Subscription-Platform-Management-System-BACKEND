@@ -1762,6 +1762,12 @@
                         "example": "HBO",
                         "nullable": false
                     },
+                    "description": {
+                        "description": "package description",
+                        "format": "string",
+                        "example": "description",
+                        "nullable": false
+                    },
                     "image_url": {
                         "description": "image_url",
                         "format": "string",
