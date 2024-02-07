@@ -10,6 +10,7 @@ return new class () extends Migration {
         Schema::create('channels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('description')->nullable();
             $table->string('image_url');
             $table->integer('lineup_id');
             $table->string('call_sign');

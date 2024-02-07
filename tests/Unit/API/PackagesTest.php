@@ -68,6 +68,7 @@ final class PackagesTest extends TestCase
     {
         $data = [
             'name' => $this->faker->lexify('????????'),
+            'description' => $this->faker->text(100),
             'sku' => $this->faker->lexify('????????'),
             'image_url' => $this->faker->imageUrl(),
             'active' => $this->faker->boolean(),
@@ -99,6 +100,7 @@ final class PackagesTest extends TestCase
         $package = Package::factory()->create();
         $data = [
             'name' => $this->faker->lexify('????????'),
+            'description' => $this->faker->text(100),
             'sku' => $this->faker->lexify('????????'),
             'image_url' => $this->faker->imageUrl(),
             'active' => $this->faker->boolean(),

@@ -18,6 +18,7 @@ class Channel extends Model implements ContractsAuditable
 
     protected $fillable = [
         'name',
+        'description',
         'image_url',
         'lineup_id',
         'call_sign',

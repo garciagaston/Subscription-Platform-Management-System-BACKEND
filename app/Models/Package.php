@@ -18,6 +18,7 @@ class Package extends Model implements ContractsAuditable
 
     protected $fillable = [
         'name',
+        'description',
         'sku',
         'image_url',
         'active'

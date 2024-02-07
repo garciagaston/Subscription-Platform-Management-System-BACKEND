@@ -68,6 +68,7 @@ final class ChannelsTest extends TestCase
     {
         $data = [
             'name' => $this->faker->name(),
+            'description' => $this->faker->text(100),
             'image_url' => $this->faker->imageUrl(),
             'lineup_id' => $this->faker->numberBetween(1, 100),
             'call_sign' => $this->faker->lexify('????'),
@@ -101,6 +102,7 @@ final class ChannelsTest extends TestCase
         $channel = Channel::factory()->create();
         $data = [
             'name' => $this->faker->name(),
+            'description' => $this->faker->text(100),
             'image_url' => $this->faker->imageUrl(),
             'lineup_id' => $this->faker->numberBetween(1, 100),
             'call_sign' => $this->faker->lexify('????'),

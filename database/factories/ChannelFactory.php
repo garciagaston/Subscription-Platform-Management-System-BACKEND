@@ -14,6 +14,7 @@ class ChannelFactory extends Factory
         $name = $this->faker->lexify('???????????');
         return [
             'name' => $name,
+            'description' => $this->faker->text(100),
             'image_url' => $this->faker->imageUrl(),
             'lineup_id' => $this->faker->numberBetween(1, 100),
             'call_sign' => strtoupper($name),
