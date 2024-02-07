@@ -18,7 +18,13 @@ class RoleSeeder extends Seeder
         $this->command->info("Admin Role created.");
 
         // USER ROLE
-        Role::create(['name' => 'user', 'guard_name' => 'web']);
+        $userRole = Role::create(['name' => 'user', 'guard_name' => 'web']);
+        $userRole->givePermissionTo(Permission::whereIn('name', [
+            'view any channels',
+            'view channels',
+            'view any packages',
+            'view packages',
+        ])->get());
         Log::info("User Role created.");
         $this->command->info("User Role created.");
 
