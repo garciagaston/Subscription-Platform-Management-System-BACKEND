@@ -14,7 +14,7 @@ class SubscriptionFactory extends Factory
 
     public function definition(): array
     {
-        $startDate = $this->faker->dateTimeBetween('-2 month', '+1 week')->format('Y-m-d H:i:s');
+        $startDate = Carbon::parse($this->faker->dateTimeBetween('-2 month', '+1 week')->format('Y-m-d H:i:s'))->startOfDay()->toDateTimeString();
         $endDate = Carbon::parse($startDate)->addMonth()->toDateTimeString();
         return [
             'user_id' => optional(User::inRandomOrder()->first())->id ?? User::factory()->create()->id,
