@@ -24,6 +24,7 @@ class PackageResource extends JsonResource
     /**
      * @OA\Property(format="int64",  property="id", title="id", description="id", default=1),
      * @OA\Property(format="string", property="name", title="name", description="Package name", default="Package 1"),
+     * @OA\Property(format="string", property="description", title="description", description="Package description", default="Package description"),
      * @OA\Property(format="string", property="sku", title="sku", description="sku", default="PACKAGE1234"),
      * @OA\Property(format="string", property="image_url", title="image_url", description="Package image url", default="https://via.placeholder.com/640x480.png/0011dd?text=eos"),
      * @OA\Property(format="boolean", property="active", title="active", description="Package active", default=true),
@@ -40,6 +41,7 @@ class PackageResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'description' => $this->description,
             'sku' => $this->sku,
             'image_url' => $this->image_url,
             'active' => $this->active,
