@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class SubscriptionSeeder extends Seeder
 {
+    // php artisan db:seed --class=ChannelSeeder
     public function run(): void
     {
         foreach (User::all() as $user) {

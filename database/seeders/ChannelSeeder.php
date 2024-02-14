@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 
 class ChannelSeeder extends Seeder
 {
+    // php artisan db:seed --class=ChannelSeeder
     public function run(): void
     {
         $count = (int) $this->command->ask('How many channels do you want to create?', 50);

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class PackageSeeder extends Seeder
 {
+    // php artisan db:seed --class=PackageSeeder
     public function run(): void
     {
         $count = (int) $this->command->ask('How many packages do you want to create?', 4);

@@ -37,13 +37,7 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $permissions = collect($this->getAllPermissions()->toArray())->map(function ($permission) {
-            return [
-                'id' => $permission['id'],
-                'name' => $permission['name'],
-            ];
-        })->toArray();
-
+        $permissions = collect($this->getAllPermissions()->toArray())->pluck('name')->toArray();
         return [
             'id' => $this->id,
             'name' => $this->name,
