@@ -39,6 +39,7 @@ class SubscriptionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $package = $this->package;
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
@@ -46,7 +47,7 @@ class SubscriptionResource extends JsonResource
             'start_date' => optional($this->start_date)->toDateTimeString(),
             'end_date' => optional($this->end_date)->toDateTimeString(),
             'active' => $this->active,
-            'package' => (new PackageResource($this->package))->toArray(new Request()),
+            'package' => isset($package) ? (new PackageResource($package))->toArray(new Request()) : null,
             'created_at' => optional($this->created_at)->toDateTimeString(),
             'updated_at' => optional($this->updated_at)->toDateTimeString(),
             'deleted_at' => optional($this->deleted_at)->toDateTimeString(),

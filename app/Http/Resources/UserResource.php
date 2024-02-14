@@ -38,15 +38,16 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         $permissions = collect($this->getAllPermissions()->toArray())->pluck('name')->toArray();
+        $subscriptions = $this->subscriptions;
         return [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
             'role' => (array) optional($this->roles->first())->only('id', 'name'),
             'permissions' => count($permissions) ? $permissions : null,
-            'subscriptions' => SubscriptionResource::collection(
-                $this->subscriptions
-            )->toArray(new Request()),
+            'subscriptions' => count($subscriptions) ? SubscriptionResource::collection(
+                $subscriptions
+            )->toArray(new Request()) : null,
             'created_at' => optional($this->created_at)->toDateTimeString(),
             'updated_at' => optional($this->updated_at)->toDateTimeString(),
             'deleted_at' => optional($this->deleted_at)->toDateTimeString(),
