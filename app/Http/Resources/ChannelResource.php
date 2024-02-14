@@ -24,7 +24,8 @@ class ChannelResource extends JsonResource
 {
     /**
      * @OA\Property(format="int64",  property="id", title="id",description="id",default=1),
-     * @OA\Property(format="string", property="name", title="name", description="TV channel name", default="HBO"),
+     * @OA\Property(format="string", property="name", title="name", description="TV channel name", default="HBO"),\
+     * @OA\Property(format="string", property="description", title="description", description="TV channel description", default="HBO"),
      * @OA\Property(format="string", property="image_url", title="image_url", description="TV channel image url", default="https://via.placeholder.com/640x480.png/0011dd?text=eos"),
      * @OA\Property(format="int64", property="lineup_id", title="lineup_id", description="TV channel lineup id", default=1),
      * @OA\Property(format="string", property="call_sign", title="call_sign", description="TV channel call sign", default="HBO"),
@@ -42,6 +43,7 @@ class ChannelResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'description' => $this->description,
             'image_url' => $this->image_url,
             'lineup_id' => $this->lineup_id,
             'call_sign' => $this->call_sign,
