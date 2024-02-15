@@ -1910,6 +1910,12 @@
                         "format": "string",
                         "default": "HBO"
                     },
+                    "description": {
+                        "title": "description",
+                        "description": "TV channel description",
+                        "format": "string",
+                        "default": "HBO"
+                    },
                     "image_url": {
                         "title": "image_url",
                         "description": "TV channel image url",
@@ -2032,7 +2038,7 @@
                 "properties": {
                     "id": {
                         "title": "id",
-                        "description": "id",
+                        "description": "Subscription ID",
                         "format": "int64",
                         "default": 1
                     },
@@ -2062,7 +2068,7 @@
                     },
                     "active": {
                         "title": "active",
-                        "description": "Package active",
+                        "description": "Is Active Subscription",
                         "format": "boolean",
                         "default": true
                     },
@@ -2071,19 +2077,19 @@
                     },
                     "created_at": {
                         "title": "created_at",
-                        "description": "Package created at",
+                        "description": "Subscription created at",
                         "format": "string",
                         "default": "2024-01-01 00:00:00"
                     },
                     "updated_at": {
                         "title": "updated_at",
-                        "description": "Package updated at",
+                        "description": "Subscription updated at",
                         "format": "string",
                         "default": "2024-01-01 00:00:00"
                     },
                     "deleted_at": {
                         "title": "deleted_at",
-                        "description": "Package deleted at",
+                        "description": "Subscription deleted at",
                         "format": "string",
                         "default": "2024-01-01 00:00:00"
                     }
