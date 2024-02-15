@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 /**
  * @OA\Schema(
@@ -39,12 +40,17 @@ class UserResource extends JsonResource
     {
         $permissions = collect($this->getAllPermissions()->toArray())->pluck('name')->toArray();
         $subscriptions = $this->subscriptions;
+        $activeSubscription = $this->subscriptions()
+            ->where('start_date', '<=', Carbon::now())
+            ->where('end_date', '>=', Carbon::now())
+            ->first();
         return [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
             'role' => (array) optional($this->roles->first())->only('id', 'name'),
             'permissions' => count($permissions) ? $permissions : null,
+            'active_subscription' => isset($activeSubscription) ? (new SubscriptionResource($activeSubscription))->toArray(new Request()) : null,
             'subscriptions' => count($subscriptions) ? SubscriptionResource::collection(
                 $subscriptions
             )->toArray(new Request()) : null,
