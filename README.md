@@ -1,6 +1,7 @@
-# SPMS Project
+# SPMS Project [BACKEND]
 
-This is the README file for the SPMS (Subscription Platform Management System) project. Below are instructions for setting up and running the project.
+## Introduction
+Welcome to the SPMS (Sample Project Management System) project! This README provides instructions for setting up and running the Laravel REST API backend. The frontend for this project was developed using the Vue 3.js framework.
 
 ## WIKI
 https://github.com/garciagaston/Subscription-Platform-Management-System-BACKEND/wiki
@@ -35,7 +36,7 @@ Update the .env file with your database and Redis information.
     ./vendor/bin/phpstan analyse
 ## Generate Swagger API Documentation:
     php artisan l5-swagger:generate
-Access the generated Swagger documentation at http://localhost:8081/api/documentation.
+Access the generated Swagger documentation at http://localhost:8000/api/documentation.
 
 ## Running Unit Tests
 To run the unit tests, execute the following command:
@@ -46,7 +47,7 @@ To run the unit tests, execute the following command:
 To start the Laravel development server, run:
 
     php artisan serve
-You can now access the application in your web browser at http://localhost:8081.
+You can now access the application in your web browser at http://localhost:8000.
 
 ## Notes
 Ensure that you have PHP, Composer, and other necessary dependencies installed on your system before proceeding with the installation.
