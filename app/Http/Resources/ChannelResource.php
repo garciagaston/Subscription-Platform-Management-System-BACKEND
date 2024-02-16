@@ -11,6 +11,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *
  * @property int $id
  * @property string $name
+ * @property string $description
  * @property string $image_url
  * @property int $lineup_id
  * @property string $call_sign

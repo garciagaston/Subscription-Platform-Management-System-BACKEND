@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
  * @property object $roles
  * @property array $permissions
  * @property array $subscriptions
+ * @method subscriptions()
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at

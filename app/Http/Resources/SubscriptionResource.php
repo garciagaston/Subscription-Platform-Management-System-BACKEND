@@ -48,7 +48,7 @@ class SubscriptionResource extends JsonResource
             'start_date' => optional($this->start_date)->toDateTimeString(),
             'end_date' => optional($this->end_date)->toDateTimeString(),
             'active' => Carbon::now() >= $this->start_date && Carbon::now() <= $this->end_date,
-            'package' => isset($package) ? (new PackageResource($package))->toArray(new Request()) : null,
+            'package' => optional($package)->id ? (new PackageResource($package))->toArray(new Request()) : null,
             'created_at' => optional($this->created_at)->toDateTimeString(),
             'updated_at' => optional($this->updated_at)->toDateTimeString(),
             'deleted_at' => optional($this->deleted_at)->toDateTimeString(),
