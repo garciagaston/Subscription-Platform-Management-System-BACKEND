@@ -68,3 +68,11 @@ https://spms-back-c49dc9b00505.herokuapp.com/api/documentation
 
 ## Laravel Telescope
 https://spms-back-c49dc9b00505.herokuapp.com/telescope
+
+
+## HEROKU
+
+### Run migrations
+    ```bash
+    heroku run php artisan migrate --path=database/migrations --app spms-back
+    ```
