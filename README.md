@@ -34,21 +34,37 @@ Update the .env file with your database and Redis information.
 8. Run PHPSTAN:
     ```bash
     ./vendor/bin/phpstan analyse
+
 ## Generate Swagger API Documentation:
+    ```bash
     php artisan l5-swagger:generate
+    ```
 Access the generated Swagger documentation at http://localhost:8000/api/documentation.
 
 ## Running Unit Tests
 To run the unit tests, execute the following command:
     ```bash
     php artisan test
+    ```
 
 ## Running the Application
 To start the Laravel development server, run:
-
+    ```bash
     php artisan serve
+    ```
+
 You can now access the application in your web browser at http://localhost:8000.
 
 ## Notes
 Ensure that you have PHP, Composer, and other necessary dependencies installed on your system before proceeding with the installation.
 Make sure your web server is properly configured to serve a Laravel application if you're not using the built-in development server.
+
+
+## Laravel API URL
+https://spms-back-c49dc9b00505.herokuapp.com/
+
+## Laravel API SWAGGER documentation
+https://spms-back-c49dc9b00505.herokuapp.com/api/documentation
+
+## Laravel Telescope
+https://spms-back-c49dc9b00505.herokuapp.com/telescope
