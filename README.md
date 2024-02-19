@@ -76,3 +76,9 @@ https://spms-back-c49dc9b00505.herokuapp.com/telescope
     ```bash
     heroku run php artisan migrate --path=database/migrations --app spms-back
     ```
+
+## TEST USERS
+    ```bash
+email: admin@fake.com
+pass: password
+    ```
