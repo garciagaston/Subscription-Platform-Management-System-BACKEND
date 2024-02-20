@@ -82,3 +82,6 @@ https://spms-back-c49dc9b00505.herokuapp.com/telescope
 email: admin@fake.com
 pass: password
     ```
+
+## Entity Relationship Diagram (ERD)
+https://lucid.app/lucidchart/12fa0d09-706b-4166-a181-6c2f402bbe83/edit?viewport_loc=-1303%2C-820%2C2537%2C1493%2C0_0&invitationId=inv_9abb45da-d6e9-4e8e-b58e-c10419a4439f
