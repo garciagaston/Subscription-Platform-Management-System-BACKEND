@@ -1,7 +1,14 @@
 # SPMS Project [BACKEND]
 
 ## Introduction
-Welcome to the SPMS (Subscription Platform Management System) API REST backend developed in Laravel 12! This README provides instructions for setting up and running the Laravel REST API backend. The frontend for this project was developed using the Vue 3.js framework.
+Welcome to the SPMS (Subscription Platform Management System) API backend, built with Laravel 12. This REST API powers the SPMS platform, managing user subscriptions to content packages and channels. The frontend for this project is developed using Vue 3.js.
+
+## Features
+- User Management: Users can register, log in, and manage their subscriptions.
+- Subscription System: Users can subscribe to packages, which include multiple channels.
+- Admin Dashboard: Admins have full CRUD access to manage users, subscriptions, packages, and channels.
+- API Documentation: Auto-generated Swagger API documentation.
+- Developer Tools: Laravel Telescope for debugging and logging.
 
 ## Installation
 
@@ -25,37 +32,38 @@ Update the .env file with your database and Redis information.
 
 5. Run database migrations:
     ```bash
-    php artisan migrate
+    php artisan migrate --seed
     ```
-6. Run Laravel PINT:
+    (Includes seeding for initial test data)
+
+6. Run Code Quality Tools:
+    Format code using Laravel Pint:
     ```bash
     ./vendor/bin/pint
     ```
-7. Run PHPSTAN:
-    ```bash
-    ./vendor/bin/phpstan analyse
-    ```
 
-## Generate Swagger API Documentation:
+## Generate API Documentation
+    Generate the Swagger documentation:
     ```bash
     php artisan l5-swagger:generate
     ```
-Access the generated Swagger documentation at http://localhost:8000/api/documentation.
+    Access it at: http://localhost:8000/api/documentation.
 
 ## Running Unit Tests
 To run the unit tests, execute the following command:
     ```bash
-    php artisan test
+    php artisan test --bail --retry --watch
     ```
 
 ## Running the Application
-To start the Laravel development server, run:
+### Development Server
+
+    To start the Laravel development server:
     ```bash
         npm install && npm run build
         composer run dev
     ```
-
-You can now access the application in your web browser at http://localhost:8000.
+    You can now access the application in your web browser at http://localhost:8000.
 
 ## Laravel API URL
 http://localhost:8000/

@@ -14,13 +14,13 @@ class PassportSeeder extends Seeder
         Artisan::call('passport:client', [
             '--client' => true,
             '--name' => 'OAuth Client',
-            //'--redirect_uri' => 'http://localhost'
+            // '--redirect_uri' => 'http://localhost'
         ]);
 
         // Create a new personal access client without user interaction
         Artisan::call('passport:client', [
             '--personal' => true,
-            '--name' => 'Personal Access Client'
+            '--name' => 'Personal Access Client',
         ]);
     }
 }

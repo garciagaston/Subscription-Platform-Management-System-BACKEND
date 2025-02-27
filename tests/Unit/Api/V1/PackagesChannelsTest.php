@@ -6,7 +6,6 @@ use App\Helpers\TestsHelper;
 use App\Http\Resources\PackageResource;
 use App\Models\Channel;
 use App\Models\Package;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
@@ -20,11 +19,8 @@ final class PackagesChannelsTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['name' => 'admin']);
-        $this->admin->assignRole('admin');
-
-        $this->user = User::factory()->create(['name' => 'user']);
-        $this->user->assignRole('user');
+        $this->admin = TestsHelper::createAdmin();
+        $this->user = TestsHelper::createUser();
     }
 
     public function test_attach_success(): void

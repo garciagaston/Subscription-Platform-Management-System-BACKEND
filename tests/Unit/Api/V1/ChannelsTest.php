@@ -5,7 +5,6 @@ namespace Tests\Unit\Api\V1;
 use App\Helpers\TestsHelper;
 use App\Http\Resources\ChannelResource;
 use App\Models\Channel;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
@@ -19,11 +18,8 @@ final class ChannelsTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['name' => 'admin']);
-        $this->admin->assignRole('admin');
-
-        $this->user = User::factory()->create(['name' => 'user']);
-        $this->user->assignRole('user');
+        $this->admin = TestsHelper::createAdmin();
+        $this->user = TestsHelper::createUser();
     }
 
     public function test_index_success(): void

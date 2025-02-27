@@ -15,11 +15,10 @@ use Illuminate\Support\Facades\DB;
 class PackageChannelController extends Controller
 {
     /**
-     * Attach a channel to a package
-     *
      * @OA\Post(
      *     path="/api/v1/packages/{packageId}/channels/{channelId}",
      *     tags={"Packages"},
+     *     description="Attach a channel to a package",
      *     summary="Attach a channel to a package",
      *     operationId="PackageChannelAttach",
      *     security={ {"bearer_token": {} }},
@@ -106,11 +105,10 @@ class PackageChannelController extends Controller
     }
 
     /**
-     * Detach a channel from a package
-     *
      * @OA\Delete(
      *     path="/api/v1/packages/{packageId}/channels/{channelId}",
      *     tags={"Packages"},
+     *     description="Detach a channel from a package",
      *     summary="Detach a channel from a package",
      *     operationId="PackageChannelDetach",
      *     security={ {"bearer_token": {} }},

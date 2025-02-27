@@ -11,13 +11,9 @@ class UserPolicy
         return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('view any users');
     }
 
-    public function view(User $user1, User $user2): bool
+    public function view(User $authenticatedUser, User $user): bool
     {
-        if ($user1->id === $user2->id) {
-            return true;
-        }
-
-        return $user1->isAdmin() || $user1->hasPermissionTo('view users');
+        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('view users') || $authenticatedUser->id === $user->id;
     }
 
     public function create(User $authenticatedUser): bool
@@ -25,17 +21,13 @@ class UserPolicy
         return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('create users');
     }
 
-    public function update(User $authenticatedUser): bool
+    public function update(User $authenticatedUser, User $user): bool
     {
-        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('edit users');
+        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('edit users') || $authenticatedUser->id === $user->id;
     }
 
-    public function delete(User $user1, User $user2): bool
+    public function delete(User $authenticatedUser, User $user): bool
     {
-        if ($user1->id === $user2->id) {
-            return true;
-        }
-
-        return $user1->isAdmin() || $user1->hasPermissionTo('delete users');
+        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('delete users') || $authenticatedUser->id === $user->id;
     }
 }

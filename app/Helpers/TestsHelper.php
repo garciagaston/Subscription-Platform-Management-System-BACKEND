@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
@@ -67,5 +68,21 @@ final class TestsHelper
     public static function getJsonResponse(TestResponse $response): mixed
     {
         return json_decode($response->getContent(), true);
+    }
+
+    public static function createAdmin(): User
+    {
+        $admin = User::factory()->create(['name' => 'admin']);
+        $admin->assignRole('admin');
+
+        return $admin;
+    }
+
+    public static function createUser(): User
+    {
+        $user = User::factory()->create();
+        $user->assignRole('user');
+
+        return $user;
     }
 }

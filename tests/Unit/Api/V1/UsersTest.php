@@ -17,17 +17,16 @@ final class UsersTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['name' => 'admin']);
-        $this->admin->assignRole('admin');
+        $this->admin = TestsHelper::createAdmin();
     }
 
     public function testIndexSuccess(): void
     {
         $count = 20;
         $perPage = 10;
-        $users = User::factory($count)->create();
-        foreach ($users as $user) {
-            $user->assignRole('user');
+        $users = [];
+        foreach (range(0, $count - 1) as $i) {
+            $users[] = TestsHelper::createUser();
         }
         $usersPaginated = User::take($perPage)->get();
         $response = $this->actingAs($this->admin)->get("/api/v1/users?per_page={$perPage}");
@@ -42,11 +41,11 @@ final class UsersTest extends TestCase
     {
         $count = 20;
         $perPage = 10;
-        $users = User::factory($count)->create();
-        foreach ($users as $user) {
-            $user->assignRole('user');
+        $users = [];
+        foreach (range(0, $count - 1) as $i) {
+            $users[] = TestsHelper::createUser();
         }
-        $randomUser = $users->random();
+        $randomUser = collect($users)->random();
         $response = $this->actingAs($randomUser)->get("/api/v1/users?per_page={$perPage}");
         TestsHelper::dumpApiResponsesWithErrors($response, Response::HTTP_FORBIDDEN);
         $response->assertStatus(Response::HTTP_FORBIDDEN);
@@ -55,11 +54,11 @@ final class UsersTest extends TestCase
     public function testShowSuccessWithAdmin(): void
     {
         $count = 10;
-        $users = User::factory($count)->create();
-        foreach ($users as $user) {
-            $user->assignRole('user');
+        $users = [];
+        foreach (range(0, $count - 1) as $i) {
+            $users[] = TestsHelper::createUser();
         }
-        $user = $users->random();
+        $user = collect($users)->random();
         $response = $this->withHeaders([
             'Accept' => 'application/json',
             'X-Requested-With' => 'XMLHttpRequest',
@@ -74,11 +73,11 @@ final class UsersTest extends TestCase
     public function testShowSuccessWithUser(): void
     {
         $count = 10;
-        $users = User::factory($count)->create();
-        foreach ($users as $user) {
-            $user->assignRole('user');
+        $users = [];
+        foreach (range(0, $count - 1) as $i) {
+            $users[] = TestsHelper::createUser();
         }
-        $user = $users->random();
+        $user = collect($users)->random();
         $response = $this->withHeaders([
             'Accept' => 'application/json',
             'X-Requested-With' => 'XMLHttpRequest',
@@ -93,13 +92,13 @@ final class UsersTest extends TestCase
     public function testShowFailWithUser(): void
     {
         $count = 10;
-        $users = User::factory($count)->create();
-        foreach ($users as $user) {
-            $user->assignRole('user');
+        $users = [];
+        foreach (range(0, $count - 1) as $i) {
+            $users[] = TestsHelper::createUser();
         }
-        $usersRandom = $users->random(2);
-        $user1 = $usersRandom[0];
-        $user2 = $usersRandom[1];
+        $users = collect($users)->random(2);
+        $user1 = $users[0];
+        $user2 = $users[1];
         $this->assertFalse($user1->isAdmin());
         $this->assertFalse($user2->isAdmin());
         $response = $this->withHeaders([
@@ -141,7 +140,6 @@ final class UsersTest extends TestCase
             'status' => 'success',
             'data' => (new UserResource($user))->toArray(new Request()),
         ]);
-        $jsonResponse = json_decode($response->getContent(), true);
         unset($data['password_confirmation']);
         foreach ($data as $key => $value) {
             if ($key === 'password') {

@@ -14,11 +14,10 @@ use Illuminate\Http\Response;
 class PackageController extends Controller
 {
     /**
-     * Get Packages
-     *
      * @OA\Get(
      *     path="/api/v1/packages",
      *     tags={"Packages"},
+     *     description="Get packages",
      *     summary="Get packages",
      *     operationId="PackagesIndex",
      *     security={ {"bearer_token": {} }},
@@ -121,11 +120,10 @@ class PackageController extends Controller
     }
 
     /**
-     * Get package by ID
-     *
      * @OA\Get(
      *     path="/api/v1/packages/{id}",
      *     tags={"Packages"},
+     *     description="Get package by ID",
      *     summary="Get Package",
      *     operationId="GetPackage",
      *     security={ {"bearer_token": {} }},
@@ -189,6 +187,7 @@ class PackageController extends Controller
      * @OA\Post(
      *     path="/api/v1/packages/",
      *     tags={"Packages"},
+     *     description="Create Package",
      *     summary="Create Package",
      *     operationId="PackageStore",
      *     security={ {"bearer_token": {} }},
@@ -255,6 +254,7 @@ class PackageController extends Controller
      * @OA\Put(
      *     path="/api/v1/packages/{id}",
      *     tags={"Packages"},
+     *     description="Edit Package",
      *     summary="Edit Package",
      *     operationId="PackageUpdate",
      *     security={ {"bearer_token": {} }},
@@ -334,6 +334,7 @@ class PackageController extends Controller
      * @OA\Delete(
      *     path="/api/v1/packages/{id}",
      *     tags={"Packages"},
+     *     description="Delete Package",
      *     summary="Delete Package",
      *     operationId="PackageDelete",
      *     security={ {"bearer_token": {} }},

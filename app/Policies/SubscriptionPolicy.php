@@ -12,9 +12,9 @@ class SubscriptionPolicy
         return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('view any subscriptions');
     }
 
-    public function view(User $user, Subscription $subscription): bool
+    public function view(User $authenticatedUser, Subscription $subscription): bool
     {
-        return $user->isAdmin() || $user->hasPermissionTo('view subscriptions');
+        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('view subscriptions') || $subscription->user_id === $authenticatedUser->id;
     }
 
     public function create(User $authenticatedUser): bool
@@ -22,13 +22,13 @@ class SubscriptionPolicy
         return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('create subscriptions') || $authenticatedUser->id === request()->user_id;
     }
 
-    public function update(User $authenticatedUser): bool
+    public function update(User $authenticatedUser, Subscription $subscription): bool
     {
-        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('edit subscriptions');
+        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('edit subscriptions') || ($authenticatedUser->id === $subscription->user_id && $authenticatedUser->id === request()->user_id);
     }
 
-    public function delete(User $user, Subscription $subscription): bool
+    public function delete(User $authenticatedUser, Subscription $subscription): bool
     {
-        return $user->isAdmin() || $user->hasPermissionTo('delete subscriptions');
+        return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('delete subscriptions') || ($authenticatedUser->id === $subscription->user_id);
     }
 }

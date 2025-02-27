@@ -21,11 +21,8 @@ final class SubscriptionsTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->admin = User::factory()->create(['name' => 'admin']);
-        $this->admin->assignRole('admin');
-
-        $this->user = User::factory()->create(['name' => 'user']);
-        $this->user->assignRole('user');
+        $this->admin = TestsHelper::createAdmin();
+        $this->user = TestsHelper::createUser();
     }
 
     public function test_index_success(): void

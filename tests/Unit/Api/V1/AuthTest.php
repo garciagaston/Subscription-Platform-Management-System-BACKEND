@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 final class AuthTest extends TestCase
 {
-    public function test_register_success(): void
+    public function testUserRegisterSuccess(): void
     {
         $password = $this->faker->password(8);
         $data = [
@@ -55,7 +55,7 @@ final class AuthTest extends TestCase
         }
     }
 
-    public function test_register_fail(): void
+    public function testUserRegisterFail(): void
     {
         $password = $this->faker->password(8);
         $data = [
@@ -87,7 +87,7 @@ final class AuthTest extends TestCase
         $this->assertEquals(User::count(), 0, 'no user registered');
     }
 
-    public function test_login_success(): void
+    public function testUserLoginSuccess(): void
     {
         $user = User::factory()->create(['password' => TestsHelper::PASSWORD]);
         $data = [
@@ -119,7 +119,7 @@ final class AuthTest extends TestCase
         $this->assertEquals($user->id, $jsonResponse['data']['user']['id']);
     }
 
-    public function test_login_fail(): void
+    public function testUserLoginFail(): void
     {
         $data = ['email' => 'fake@email.com', 'password' => 'fakeEmail'];
         $response = $this->post('/api/v1/auth/login', $data);
@@ -130,7 +130,7 @@ final class AuthTest extends TestCase
         ]);
     }
 
-    public function test_logout_success(): void
+    public function testLogoutSuccess(): void
     {
         $user = User::factory()->create();
         $user->assignRole('user');
