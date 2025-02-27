@@ -18,7 +18,7 @@ class ChannelIndexRequest extends FormRequest
             'per_page' => 'sometimes|nullable|int',
             'name' => 'sometimes|nullable|string',
             'call_sign' => 'sometimes|nullable|string',
-            'active' => 'sometimes|nullable|boolean'
+            'active' => 'sometimes|nullable|boolean',
         ];
     }
 }

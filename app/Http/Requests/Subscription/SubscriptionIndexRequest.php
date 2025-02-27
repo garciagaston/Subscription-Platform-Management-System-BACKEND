@@ -18,7 +18,7 @@ class SubscriptionIndexRequest extends FormRequest
             'per_page' => 'sometimes|nullable|int',
             'user_id' => 'sometimes|nullable|int|exists:App\Models\User,id',
             'package_id' => 'sometimes|nullable|int|exists:App\Models\Package,id',
-            'active' => 'sometimes|nullable|boolean'
+            'active' => 'sometimes|nullable|boolean',
         ];
     }
 }

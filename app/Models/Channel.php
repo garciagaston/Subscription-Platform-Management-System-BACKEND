@@ -12,9 +12,7 @@ use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
 class Channel extends Model implements ContractsAuditable
 {
-    use HasFactory;
-    use SoftDeletes;
-    use Auditable;
+    use Auditable, HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -23,7 +21,7 @@ class Channel extends Model implements ContractsAuditable
         'lineup_id',
         'call_sign',
         'active',
-        'display_order'
+        'display_order',
     ];
 
     protected $casts = [
@@ -42,6 +40,7 @@ class Channel extends Model implements ContractsAuditable
         if (isset($request->active)) {
             $filter = $query->where('active', $request->active);
         }
+
         return $filter;
     }
 
@@ -49,5 +48,4 @@ class Channel extends Model implements ContractsAuditable
     {
         return $this->belongsToMany(Package::class, 'package_channel', 'channel_id', 'package_id')->withTimestamps();
     }
-
 }

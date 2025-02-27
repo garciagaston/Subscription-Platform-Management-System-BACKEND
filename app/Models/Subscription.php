@@ -12,9 +12,7 @@ use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
 class Subscription extends Model implements ContractsAuditable
 {
-    use HasFactory;
-    use SoftDeletes;
-    use Auditable;
+    use Auditable, HasFactory, SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -40,6 +38,7 @@ class Subscription extends Model implements ContractsAuditable
         if (isset($request->active)) {
             $filter = $query->where('start_date', '<=', Carbon::now())->where('end_date', '>=', Carbon::now());
         }
+
         return $filter;
     }
 

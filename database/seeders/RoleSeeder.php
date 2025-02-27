@@ -14,8 +14,8 @@ class RoleSeeder extends Seeder
         // ADMIN ROLE
         $adminRole = Role::create(['name' => 'admin', 'guard_name' => 'web']);
         $adminRole->givePermissionTo(Permission::where('guard_name', 'web')->get());
-        Log::info("Admin Role created.");
-        $this->command->info("Admin Role created.");
+        Log::info('Admin Role created.');
+        $this->command->info('Admin Role created.');
 
         // USER ROLE
         $userRole = Role::create(['name' => 'user', 'guard_name' => 'web']);
@@ -25,8 +25,8 @@ class RoleSeeder extends Seeder
             'view any packages',
             'view packages',
         ])->get());
-        Log::info("User Role created.");
-        $this->command->info("User Role created.");
+        Log::info('User Role created.');
+        $this->command->info('User Role created.');
 
     }
 }

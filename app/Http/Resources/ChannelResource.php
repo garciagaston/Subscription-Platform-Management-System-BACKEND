@@ -35,9 +35,6 @@ class ChannelResource extends JsonResource
      * @OA\Property(format="string", property="created_at", title="created_at", description="TV channel created at", default="2024-01-01 00:00:00"),
      * @OA\Property(format="string", property="updated_at", title="updated_at", description="TV channel updated at", default="2024-01-01 00:00:00"),
      * @OA\Property(format="string", property="deleted_at", title="deleted_at", description="TV channel deleted at", default="2024-01-01 00:00:00"),
-     *
-     * @param Request $request
-     * @return array
      */
     public function toArray(Request $request): array
     {
@@ -52,7 +49,7 @@ class ChannelResource extends JsonResource
             'display_order' => $this->display_order,
             'created_at' => optional($this->created_at)->toDateTimeString(),
             'updated_at' => optional($this->updated_at)->toDateTimeString(),
-            'deleted_at' => optional($this->deleted_at)->toDateTimeString()
+            'deleted_at' => optional($this->deleted_at)->toDateTimeString(),
         ];
     }
 }

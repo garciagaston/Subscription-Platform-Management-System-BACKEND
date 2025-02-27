@@ -33,9 +33,6 @@ class PackageResource extends JsonResource
      * @OA\Property(format="string", property="updated_at", title="updated_at", description="Package updated at", default="2024-01-01 00:00:00"),
      * @OA\Property(format="string", property="deleted_at", title="deleted_at", description="Package deleted at", default="2024-01-01 00:00:00"),
      * @OA\Property(format="array", type="array", property="channels", description="channels", @OA\Items( ref="#/components/schemas/ChannelResource") ),
-     *
-     * @param Request $request
-     * @return array
      */
     public function toArray(Request $request): array
     {
@@ -51,7 +48,7 @@ class PackageResource extends JsonResource
             'deleted_at' => optional($this->deleted_at)->toDateTimeString(),
             'channels' => ChannelResource::collection(
                 $this->channels
-            )->toArray(new Request()),
+            )->toArray(new Request),
         ];
     }
 }

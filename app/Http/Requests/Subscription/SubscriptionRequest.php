@@ -31,7 +31,7 @@ class SubscriptionRequest extends FormRequest
             'package_id' => 'sometimes|nullable|int|exists:App\Models\Package,id',
             'start_date' => 'required|string|date|before:end_date',
             'end_date' => 'required|string|date|after:start_date',
-            'active' => 'sometimes|nullable|boolean'
+            'active' => 'sometimes|nullable|boolean',
         ];
     }
 }

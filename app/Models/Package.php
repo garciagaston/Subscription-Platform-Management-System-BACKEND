@@ -12,16 +12,14 @@ use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
 class Package extends Model implements ContractsAuditable
 {
-    use HasFactory;
-    use SoftDeletes;
-    use Auditable;
+    use Auditable, HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
         'description',
         'sku',
         'image_url',
-        'active'
+        'active',
     ];
 
     protected $casts = [
@@ -40,6 +38,7 @@ class Package extends Model implements ContractsAuditable
         if (isset($request->active)) {
             $filter = $query->where('active', $request->active);
         }
+
         return $filter;
     }
 

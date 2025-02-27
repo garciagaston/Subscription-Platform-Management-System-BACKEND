@@ -34,13 +34,11 @@ class SubscriptionResource extends JsonResource
      * @OA\Property(format="string", property="created_at", title="created_at", description="Subscription created at", default="2024-01-01 00:00:00"),
      * @OA\Property(format="string", property="updated_at", title="updated_at", description="Subscription updated at", default="2024-01-01 00:00:00"),
      * @OA\Property(format="string", property="deleted_at", title="deleted_at", description="Subscription deleted at", default="2024-01-01 00:00:00"),
-     *
-     * @param Request $request
-     * @return array
      */
     public function toArray(Request $request): array
     {
         $package = $this->package;
+
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
@@ -48,7 +46,7 @@ class SubscriptionResource extends JsonResource
             'start_date' => optional($this->start_date)->toDateTimeString(),
             'end_date' => optional($this->end_date)->toDateTimeString(),
             'active' => Carbon::now() >= $this->start_date && Carbon::now() <= $this->end_date,
-            'package' => optional($package)->id ? (new PackageResource($package))->toArray(new Request()) : null,
+            'package' => optional($package)->id ? (new PackageResource($package))->toArray(new Request) : null,
             'created_at' => optional($this->created_at)->toDateTimeString(),
             'updated_at' => optional($this->updated_at)->toDateTimeString(),
             'deleted_at' => optional($this->deleted_at)->toDateTimeString(),

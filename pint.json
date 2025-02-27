@@ -1,3 +1,20 @@
 {
-    "preset": "psr12"
+    "preset": "laravel",
+    "rules": {
+        "concat_space": false,
+        "new_with_parentheses": false,
+        "phpdoc_separation": false,
+        "php_unit_method_casing": false,
+        "heredoc_to_nowdoc": false,
+        "ordered_imports": {
+            "sort_algorithm": "alpha"
+        },
+        "visibility_required": {
+            "elements": ["property", "method", "const"]
+        },
+        "nullable_type_declaration_for_default_null_value": true
+    },
+    "exclude": [
+        "deploy_scripts"
+    ]
 }

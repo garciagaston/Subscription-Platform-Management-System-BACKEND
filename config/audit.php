@@ -24,13 +24,13 @@ return [
     |
     */
 
-    'user'      => [
+    'user' => [
         'morph_prefix' => 'user',
-        'guards'       => [
+        'guards' => [
             'web',
-            'api'
+            'api',
         ],
-        'resolver'     => OwenIt\Auditing\Resolvers\UserResolver::class
+        'resolver' => OwenIt\Auditing\Resolvers\UserResolver::class,
     ],
 
     /*
@@ -44,7 +44,7 @@ return [
     'resolvers' => [
         'ip_address' => OwenIt\Auditing\Resolvers\IpAddressResolver::class,
         'user_agent' => OwenIt\Auditing\Resolvers\UserAgentResolver::class,
-        'url'        => OwenIt\Auditing\Resolvers\UrlResolver::class,
+        'url' => OwenIt\Auditing\Resolvers\UrlResolver::class,
     ],
 
     /*
@@ -60,7 +60,7 @@ return [
         'created',
         'updated',
         'deleted',
-        'restored'
+        'restored',
     ],
 
     /*
@@ -101,10 +101,23 @@ return [
     |
     */
 
-    'empty_values'         => true,
+    'empty_values' => true,
     'allowed_empty_values' => [
-        'retrieved'
+        'retrieved',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allowed Array Values
+    |--------------------------------------------------------------------------
+    |
+    | Should the array values be audited?
+    |
+    | By default, array values are not allowed. This is to prevent performance
+    | issues when storing large amounts of data. You can override this by
+    | setting allow_array_values to true.
+    */
+    'allowed_array_values' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -151,7 +164,7 @@ return [
 
     'drivers' => [
         'database' => [
-            'table'      => 'audits',
+            'table' => 'audits',
             'connection' => null,
         ],
     ],
@@ -166,10 +179,10 @@ return [
     */
 
     'queue' => [
-        'enable'     => false,
+        'enable' => false,
         'connection' => 'sync',
-        'queue'      => 'default',
-        'delay'      => 0,
+        'queue' => 'default',
+        'delay' => 0,
     ],
 
     /*

@@ -34,7 +34,7 @@ class ChannelRequest extends FormRequest
             'lineup_id' => 'required|integer',
             'call_sign' => 'required|string',
             'active' => 'required|boolean',
-            'display_order' => 'required|integer'
+            'display_order' => 'required|integer',
         ];
     }
 }

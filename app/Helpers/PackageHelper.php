@@ -22,17 +22,18 @@ final class PackageHelper
         $package->auditEvent = 'package-channels-attach';
         $package->isCustomEvent = true;
         $package->auditCustomOld = [
-            'channels_in_package' => $channelsOld
+            'channels_in_package' => $channelsOld,
         ];
         $package->auditCustomNew = [
-            'channels_in_package' => $channelsNew
+            'channels_in_package' => $channelsNew,
         ];
-        Event::dispatch(AuditCustom::class, [$package]);
+        Event::dispatch(new AuditCustom($package));
+
     }
 
     public static function detachChannelToPackage(Package $package, Channel $channel): void
     {
-        if (!$package->channels->contains($channel->id)) {
+        if (! $package->channels->contains($channel->id)) {
             throw new Exception("The package with ID #{$package->id} is not associated with the channel that has ID #{$channel->id}.");
         }
         $channelsOld = $package->channels->pluck('id')->toArray();
@@ -42,11 +43,11 @@ final class PackageHelper
         $package->auditEvent = 'package-channels-detach';
         $package->isCustomEvent = true;
         $package->auditCustomOld = [
-            'channels_in_package' => $channelsOld
+            'channels_in_package' => $channelsOld,
         ];
         $package->auditCustomNew = [
-            'channels_in_package' => $channelsNew
+            'channels_in_package' => $channelsNew,
         ];
-        Event::dispatch(AuditCustom::class, [$package]);
+        Event::dispatch(new AuditCustom($package));
     }
 }

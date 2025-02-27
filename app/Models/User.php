@@ -2,26 +2,19 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
+use Laravel\Passport\HasApiTokens;
 use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements ContractsAuditable
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasRoles;
-    use Notifiable;
-    use SoftDeletes;
-    use Auditable;
+    use Auditable, HasApiTokens, HasFactory, HasRoles, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -34,10 +27,13 @@ class User extends Authenticatable implements ContractsAuditable
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
 
     public function scopeFilter(Builder $query, $request)
     {
@@ -48,6 +44,7 @@ class User extends Authenticatable implements ContractsAuditable
         if (isset($request->email)) {
             $filter = $query->where('email', 'like', "%{$request->email}%");
         }
+
         return $filter;
     }
 

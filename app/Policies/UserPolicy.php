@@ -16,6 +16,7 @@ class UserPolicy
         if ($user1->id === $user2->id) {
             return true;
         }
+
         return $user1->isAdmin() || $user1->hasPermissionTo('view users');
     }
 
@@ -34,6 +35,7 @@ class UserPolicy
         if ($user1->id === $user2->id) {
             return true;
         }
+
         return $user1->isAdmin() || $user1->hasPermissionTo('delete users');
     }
 }

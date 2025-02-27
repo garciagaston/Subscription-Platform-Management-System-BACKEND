@@ -22,7 +22,7 @@ class PermissionSeeder extends Seeder
             $this->command->info("{$permission} permissions created.");
         }
 
-        Permission::create(['name' => "attach packages channels", 'guard_name' => 'web']);
-        Permission::create(['name' => "detach packages channels", 'guard_name' => 'web']);
+        Permission::create(['name' => 'attach packages channels', 'guard_name' => 'web']);
+        Permission::create(['name' => 'detach packages channels', 'guard_name' => 'web']);
     }
 }

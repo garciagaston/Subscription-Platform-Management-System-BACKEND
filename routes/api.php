@@ -1,26 +1,18 @@
 <?php
 
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\ChannelController;
-use App\Http\Controllers\Api\PackageChannelController;
-use App\Http\Controllers\Api\PackageController;
-use App\Http\Controllers\Api\SubscriptionController;
-use App\Http\Controllers\Api\UsersController;
-use App\Models\Package;
-use App\Models\Subscription;
+use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\ChannelController;
+use App\Http\Controllers\Api\V1\PackageChannelController;
+use App\Http\Controllers\Api\V1\PackageController;
+use App\Http\Controllers\Api\V1\SubscriptionController;
+use App\Http\Controllers\Api\V1\UsersController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-*/
-Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
-    // OPEN ENDPOINTS
+Route::prefix('v1')->group(function () {
     // AUTH ENDPOINTS
-    Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
-        Route::post('/register', [AuthController::class, 'register'])->name('register');
-        Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::prefix('auth')->controller(AuthController::class)->group(function () {
+        Route::post('register', 'register');
+        Route::post('login', 'login');
     });
 
     // AUTHENTICATED ENDPOINTS

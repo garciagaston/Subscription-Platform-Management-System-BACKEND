@@ -17,9 +17,9 @@ class PackageFactory extends Factory
             'sku' => strtoupper($this->faker->lexify('SKU????????')),
             'image_url' => $this->faker->imageUrl(),
             'active' => $this->faker->boolean(),
-            'created_at' =>  now()->toDateTimeString(),
-            'updated_at' =>  now()->toDateTimeString(),
-            'deleted_at' =>  null,
+            'created_at' => now()->toDateTimeString(),
+            'updated_at' => now()->toDateTimeString(),
+            'deleted_at' => null,
         ];
     }
 }
