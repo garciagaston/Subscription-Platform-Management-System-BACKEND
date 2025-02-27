@@ -194,6 +194,6 @@ final class SubscriptionsTest extends TestCase
         $deletedSubscription = Subscription::where('id', $subscription->id)->onlyTrashed()->firstOrFail();
         $this->assertNotNull($deletedSubscription);
         $this->assertEquals($deletedSubscription::count(), 0, 'deleted subscription');
-        $this->assertEquals(Subscription::onlyTrashed()->count(), 1, 'deleted subscriptions '.Subscription::onlyTrashed()->count());
+        $this->assertEquals(Subscription::onlyTrashed()->count(), 1, 'deleted subscriptions ' . Subscription::onlyTrashed()->count());
     }
 }

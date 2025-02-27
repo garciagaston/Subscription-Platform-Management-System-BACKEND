@@ -14,7 +14,12 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements ContractsAuditable
 {
-    use Auditable, HasApiTokens, HasFactory, HasRoles, Notifiable, SoftDeletes;
+    use Auditable;
+    use HasApiTokens;
+    use HasFactory;
+    use HasRoles;
+    use Notifiable;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',

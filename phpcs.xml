@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+    <description>The coding standard for our project.</description>
+    <rule ref="PSR12"/>
+
+    <file>app</file>
+    <file>bootstrap</file>
+    <file>config</file>
+    <file>database</file>
+    <file>resources</file>
+    <file>routes</file>
+    <file>tests</file>
+
+    <exclude-pattern>bootstrap/cache/*</exclude-pattern>
+    <exclude-pattern>bootstrap/autoload.php</exclude-pattern>
+    <exclude-pattern>*/migrations/*</exclude-pattern>
+    <exclude-pattern>*/seeds/*</exclude-pattern>
+    <exclude-pattern>*.blade.php</exclude-pattern>
+    <exclude-pattern>*.js</exclude-pattern>
+    <exclude-pattern>/resources/lang/vendor/*</exclude-pattern>
+    <exclude-pattern>*framework*</exclude-pattern>
+    <exclude-pattern>Pest.php</exclude-pattern>
+
+    <arg name="basepath" value="."/>
+
+    <!-- RUN: $php ./vendor/bin/phpcs -s -->
+    <!-- PHP VARIABLES CAMEL CASE NAMING CONVENTION -->
+    <rule ref="Squiz.NamingConventions.ValidVariableName" />
+    <rule ref="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Ignore LineLength limit-->
+    <rule ref="Generic.Files.LineLength">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+
+    <!-- Ignore Underscore Validation in Variable Naming Conventions-->
+    <rule ref="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+
+    <!-- PHPUNIT snake case funtion names -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <file>tests</file>
+        <exclude-pattern>./tests/*</exclude-pattern>
+    </rule>
+    <!-- skip white space error in Windows -->
+    <rule ref="Generic.Files.LineEndings">
+        <properties>
+            <property name="eolChar" value="\n"/>
+        </properties>
+    </rule>
+
+    <rule ref="Generic.Files.LineEndings">
+        <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
+    </rule>
+
+    <!-- AVAILABLE STANDARD DOCUMENTATION: https://github.com/slevomat/coding-standard/tree/7.2.1 -->
+    <!-- VARIABLES -->
+    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable" />
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses" />
+    <rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure" />
+
+    <!-- ARRAYS -->
+    <rule ref="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation">
+        <exclude name="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation.ImplicitArrayCreationUsed"/>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Arrays.MultiLineArrayEndBracketPlacement" />
+    <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace" />
+    <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility" />
+    <rule ref="SlevomatCodingStandard.Exceptions.DisallowNonCapturingCatch" />
+    <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon" />
+    <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses" />
+    <!-- Show progression -->
+
+
+
+    <rule ref="PSR12.Classes.ClassInstantiation">
+        <exclude name="PSR12.Classes.ClassInstantiation.MissingParentheses"/>
+    </rule>
+
+
+    <arg value="p"/>
+</ruleset>

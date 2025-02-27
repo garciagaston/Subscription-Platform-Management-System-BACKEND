@@ -28,7 +28,6 @@ final class PackageHelper
             'channels_in_package' => $channelsNew,
         ];
         Event::dispatch(new AuditCustom($package));
-
     }
 
     public static function detachChannelToPackage(Package $package, Channel $channel): void

@@ -25,9 +25,11 @@ abstract class TestCase extends BaseTestCase
 
     private function createPassportClient(): void
     {
-        $clientRepository = new ClientRepository;
+        $clientRepository = new ClientRepository();
         $client = $clientRepository->createPersonalAccessClient(
-            null, 'Test Personal Access Client', 'http://localhost'
+            null,
+            'Test Personal Access Client',
+            'http://localhost'
         );
 
         DB::table('oauth_personal_access_clients')->insert([

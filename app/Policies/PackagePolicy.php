@@ -12,7 +12,7 @@ class PackagePolicy
         return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('view any packages');
     }
 
-    public function view(User $user, Package $package): bool
+    public function view(User $user): bool
     {
         return $user->isAdmin() || $user->hasPermissionTo('view packages');
     }

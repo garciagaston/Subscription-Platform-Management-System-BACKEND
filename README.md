@@ -40,6 +40,7 @@ Update the .env file with your database and Redis information.
     Format code using Laravel Pint:
     ```bash
     ./vendor/bin/pint
+    ./vendor/bin/pint && php ./vendor/bin/phpcs -s
     ```
 
 ## Generate API Documentation

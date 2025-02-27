@@ -134,6 +134,6 @@ final class PackagesTest extends TestCase
         $deletedPackage = Package::where('id', $package->id)->onlyTrashed()->firstOrFail();
         $this->assertNotNull($deletedPackage);
         $this->assertEquals($deletedPackage::count(), 0, 'deleted package');
-        $this->assertEquals(Package::onlyTrashed()->count(), 1, 'deleted packages '.Package::onlyTrashed()->count());
+        $this->assertEquals(Package::onlyTrashed()->count(), 1, 'deleted packages ' . Package::onlyTrashed()->count());
     }
 }

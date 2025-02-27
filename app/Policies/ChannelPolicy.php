@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Channel;
 use App\Models\User;
 
 class ChannelPolicy
@@ -12,7 +11,7 @@ class ChannelPolicy
         return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('view any channels');
     }
 
-    public function view(User $user, Channel $channel): bool
+    public function view(User $user): bool
     {
         return $user->isAdmin() || $user->hasPermissionTo('view channels');
     }
@@ -27,7 +26,7 @@ class ChannelPolicy
         return $authenticatedUser->isAdmin() || $authenticatedUser->hasPermissionTo('edit channels');
     }
 
-    public function delete(User $user, Channel $channel): bool
+    public function delete(User $user): bool
     {
         return $user->isAdmin() || $user->hasPermissionTo('delete channels');
     }

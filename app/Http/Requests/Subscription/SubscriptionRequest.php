@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Subscription;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**

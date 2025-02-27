@@ -25,7 +25,7 @@ final class UsersTest extends TestCase
         $count = 20;
         $perPage = 10;
         $users = [];
-        foreach (range(0, $count - 1) as $i) {
+        foreach (range(0, $count - 1) as $i) { // @phpcs:ignore
             $users[] = TestsHelper::createUser();
         }
         $usersPaginated = User::take($perPage)->get();
@@ -42,7 +42,7 @@ final class UsersTest extends TestCase
         $count = 20;
         $perPage = 10;
         $users = [];
-        foreach (range(0, $count - 1) as $i) {
+        foreach (range(0, $count - 1) as $i) { // @phpcs:ignore
             $users[] = TestsHelper::createUser();
         }
         $randomUser = collect($users)->random();
@@ -55,7 +55,7 @@ final class UsersTest extends TestCase
     {
         $count = 10;
         $users = [];
-        foreach (range(0, $count - 1) as $i) {
+        foreach (range(0, $count - 1) as $i) { // @phpcs:ignore
             $users[] = TestsHelper::createUser();
         }
         $user = collect($users)->random();
@@ -74,7 +74,7 @@ final class UsersTest extends TestCase
     {
         $count = 10;
         $users = [];
-        foreach (range(0, $count - 1) as $i) {
+        foreach (range(0, $count - 1) as $i) { // @phpcs:ignore
             $users[] = TestsHelper::createUser();
         }
         $user = collect($users)->random();
@@ -93,7 +93,7 @@ final class UsersTest extends TestCase
     {
         $count = 10;
         $users = [];
-        foreach (range(0, $count - 1) as $i) {
+        foreach (range(0, $count - 1) as $i) { // @phpcs:ignore
             $users[] = TestsHelper::createUser();
         }
         $users = collect($users)->random(2);

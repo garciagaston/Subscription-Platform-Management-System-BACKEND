@@ -22,7 +22,7 @@ final class ChannelsTest extends TestCase
         $this->user = TestsHelper::createUser();
     }
 
-    public function test_index_success(): void
+    public function testIndexSuccess(): void
     {
         $count = 20;
         $perPage = 10;
@@ -36,7 +36,7 @@ final class ChannelsTest extends TestCase
         $this->assertEquals($jsonResponse['data'], ChannelResource::collection($channelsPaginated)->toArray(new Request));
     }
 
-    public function test_index_failed(): void
+    public function testIndexFailed(): void
     {
         $count = 20;
         $perPage = 10;
@@ -46,7 +46,7 @@ final class ChannelsTest extends TestCase
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
-    public function test_show_success_with_admin(): void
+    public function testShowSuccessWithAdmin(): void
     {
         $count = 10;
         $channels = Channel::factory($count)->create();
@@ -62,7 +62,7 @@ final class ChannelsTest extends TestCase
         ]);
     }
 
-    public function test_store_success(): void
+    public function testStoreSuccess(): void
     {
         $data = [
             'name' => $this->faker->name(),
@@ -95,7 +95,7 @@ final class ChannelsTest extends TestCase
         }
     }
 
-    public function test_update_success(): void
+    public function testUpdateSuccess(): void
     {
         $channel = Channel::factory()->create();
         $data = [
@@ -127,7 +127,7 @@ final class ChannelsTest extends TestCase
         }
     }
 
-    public function test_delete_success(): void
+    public function testDeleteSuccess(): void
     {
         $channel = Channel::factory()->create();
         $this->assertEquals(Channel::count(), 1, '1 Channel');
@@ -138,6 +138,6 @@ final class ChannelsTest extends TestCase
         $deletedChannel = Channel::where('id', $channel->id)->onlyTrashed()->firstOrFail();
         $this->assertNotNull($deletedChannel);
         $this->assertEquals($deletedChannel::count(), 0, 'deleted channel');
-        $this->assertEquals(Channel::onlyTrashed()->count(), 1, 'deleted channels '.Channel::onlyTrashed()->count());
+        $this->assertEquals(Channel::onlyTrashed()->count(), 1, 'deleted channels ' . Channel::onlyTrashed()->count());
     }
 }

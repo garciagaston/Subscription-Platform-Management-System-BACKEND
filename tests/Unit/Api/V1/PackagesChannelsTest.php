@@ -23,7 +23,7 @@ final class PackagesChannelsTest extends TestCase
         $this->user = TestsHelper::createUser();
     }
 
-    public function test_attach_success(): void
+    public function testAttachSuccess(): void
     {
         $count = 5;
         $packages = Package::factory($count)->create();
@@ -42,7 +42,7 @@ final class PackagesChannelsTest extends TestCase
         ]);
     }
 
-    public function test_detach_success(): void
+    public function testDetachSuccess(): void
     {
         $count = 5;
         $packages = Package::factory($count)->create();

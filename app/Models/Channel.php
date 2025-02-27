@@ -12,7 +12,9 @@ use OwenIt\Auditing\Contracts\Auditable as ContractsAuditable;
 
 class Channel extends Model implements ContractsAuditable
 {
-    use Auditable, HasFactory, SoftDeletes;
+    use Auditable;
+    use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',

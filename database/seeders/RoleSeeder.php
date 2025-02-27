@@ -27,6 +27,5 @@ class RoleSeeder extends Seeder
         ])->get());
         Log::info('User Role created.');
         $this->command->info('User Role created.');
-
     }
 }
